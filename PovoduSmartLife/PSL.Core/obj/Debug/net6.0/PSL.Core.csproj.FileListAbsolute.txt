@@ -1,0 +1,5 @@
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Core\obj\Debug\net6.0\PSL.Core.csproj.AssemblyReference.cache
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Core\obj\Debug\net6.0\PSL.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Core\obj\Debug\net6.0\PSL.Core.AssemblyInfoInputs.cache
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Core\obj\Debug\net6.0\PSL.Core.AssemblyInfo.cs
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Core\obj\Debug\net6.0\PSL.Core.csproj.CoreCompileInputs.cache

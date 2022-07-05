@@ -1,0 +1,5 @@
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Business\obj\Debug\net6.0\PSL.Business.csproj.AssemblyReference.cache
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Business\obj\Debug\net6.0\PSL.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Business\obj\Debug\net6.0\PSL.Business.AssemblyInfoInputs.cache
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Business\obj\Debug\net6.0\PSL.Business.AssemblyInfo.cs
+C:\Projects\PSL\PSL-Service\PovoduSmartLife\PSL.Business\obj\Debug\net6.0\PSL.Business.csproj.CoreCompileInputs.cache
