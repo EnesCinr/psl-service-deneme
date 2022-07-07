@@ -1,4 +1,5 @@
-﻿using PSL.DataAccess;
+﻿using PSL.Core.DataAccess;
+using PSL.DataAccess;
 using PSL.Entities.Concrete.Users;
 using System;
 using System.Collections.Generic;

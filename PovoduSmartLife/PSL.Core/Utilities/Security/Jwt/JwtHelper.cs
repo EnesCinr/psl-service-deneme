@@ -1,6 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using PSL.Core.Utilities.Security.Encryption;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,12 +9,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using PSL.Core.Entities.Concrete;
 
 namespace PSL.Core.Utilities.Security.Jwt
 {
     public class JwtHelper : ITokenHelper
     {
-        private Microsoft.Extensions.Configuration.IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
         private TokenOptions _tokenOptions { get; }
         private DateTime _accessTokenExpiration;
         public JwtHelper(IConfiguration configuration)

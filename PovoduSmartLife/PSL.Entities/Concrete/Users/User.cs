@@ -11,8 +11,8 @@ namespace PSL.Entities.Concrete.Users
     {
         public int Id { get; set; }
         public string IdentificationName { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsDelete { get; set; } = false;
         public virtual ICollection<UserRelation> UserRelations { get; set; }

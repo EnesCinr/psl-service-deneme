@@ -4,11 +4,6 @@ using PSL.DataAccess.Concrete.EntityFramework.Mapping.Devices;
 using PSL.DataAccess.Concrete.EntityFramework.Mapping.Users;
 using PSL.Entities.Concrete.Devices;
 using PSL.Entities.Concrete.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSL.DataAccess.Concrete.EntityFramework.Context
 {
