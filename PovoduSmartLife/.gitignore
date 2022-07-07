@@ -444,4 +444,4 @@ $RECYCLE.BIN/
 *.vsidx
 *.futdcache.v1
 *.suo
-*/obj
+/obj
