@@ -59,7 +59,7 @@ using (var scope = app.Services.CreateScope())
     dataContext.Database.Migrate();
 }
 
-var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+//var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
