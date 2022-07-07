@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using PSL.Core.Entities.Concrete;
+using PSL.Core.Extensions;
 
 namespace PSL.Core.Utilities.Security.Jwt
 {
