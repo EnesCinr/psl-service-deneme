@@ -3,7 +3,7 @@ using PSL.DataAccess.Concrete.EntityFramework.Context;
 using PSL.DataAccess.Interfaces.Devices;
 using PSL.Entities.Concrete.Devices;
 
-namespace PSL.DataAccess.Concrete.Dal.Devices
+namespace PSL.DataAccess.Concrete.EntityFramework.Dal.Devices
 {
     public class EFDeviceDal : EFEntityRepositoryBase<Device>, IDeviceDal
     {

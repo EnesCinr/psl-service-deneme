@@ -3,7 +3,7 @@ using PSL.DataAccess.Concrete.EntityFramework.Context;
 using PSL.DataAccess.Interfaces.Users;
 using PSL.Entities.Concrete.Users;
 
-namespace PSL.DataAccess.Concrete.Dal.Users
+namespace PSL.DataAccess.Concrete.EntityFramework.Dal.Users
 {
     public class EFUserDal : EFEntityRepositoryBase<User>, IUserDal
     {

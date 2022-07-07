@@ -73,3 +73,7 @@ C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\obj\Deb
 C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\obj\Debug\net6.0\PSL.WebApi.pdb
 C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\obj\Debug\net6.0\PSL.WebApi.genruntimeconfig.cache
 C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\obj\Debug\net6.0\ref\PSL.WebApi.dll
+C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
+C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\bin\Debug\net6.0\Humanizer.dll
+C:\Users\DELL\Source\Repos\Povodu\PSL-Service\PovoduSmartLife\PSL.WebApi\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll

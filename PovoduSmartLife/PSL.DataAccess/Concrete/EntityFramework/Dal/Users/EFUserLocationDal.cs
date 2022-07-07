@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSL.DataAccess.Concrete.Dal.Users
+namespace PSL.DataAccess.Concrete.EntityFramework.Dal.Users
 {
     public class EFUserLocationDal : EFEntityRepositoryBase<UserLocation>, IUserLocationDal
     {

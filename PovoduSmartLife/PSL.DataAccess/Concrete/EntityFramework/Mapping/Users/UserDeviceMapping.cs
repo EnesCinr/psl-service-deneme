@@ -13,7 +13,8 @@ namespace PSL.DataAccess.Concrete.EntityFramework.Mapping.Users
     {
         public void Configure(EntityTypeBuilder<UserDevice> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(b => b.Id);
+            builder.Property(b => b.Id).UseIdentityColumn();
         }
     }
 }

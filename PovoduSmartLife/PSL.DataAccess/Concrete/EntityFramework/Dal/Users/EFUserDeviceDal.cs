@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSL.DataAccess.Concrete.Dal.Users
+namespace PSL.DataAccess.Concrete.EntityFramework.Dal.Users
 {
-    public class EFUserRelationDal : EFEntityRepositoryBase<UserRelation>, IUserRelationDal
+    public class EFUserDeviceDal : EFEntityRepositoryBase<UserDevice>, IUserDeviceDal
     {
-        public EFUserRelationDal(SmartHomeManagementContext dbContext) : base(dbContext)
+        public EFUserDeviceDal(SmartHomeManagementContext dbContext) : base(dbContext)
         {
         }
     }

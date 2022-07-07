@@ -13,6 +13,11 @@ namespace PSL.DataAccess.Concrete.EntityFramework.Context
             : base(options)
         { }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
+
         #region DbSets
         public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<DeviceType> DeviceTypes { get; set; }
@@ -34,7 +39,5 @@ namespace PSL.DataAccess.Concrete.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new UserDeviceMapping());
             modelBuilder.ApplyConfiguration(new UserRelationMapping());
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

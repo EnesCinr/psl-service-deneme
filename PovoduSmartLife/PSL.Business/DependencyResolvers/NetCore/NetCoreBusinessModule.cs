@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PSL.Core.Utilities.Security.Jwt;
-using PSL.DataAccess.Concrete.Dal.Devices;
-using PSL.DataAccess.Concrete.Dal.Users;
+using PSL.DataAccess.Concrete.EntityFramework.Dal.Devices;
+using PSL.DataAccess.Concrete.EntityFramework.Dal.Users;
 using PSL.DataAccess.Interfaces.Devices;
 using PSL.DataAccess.Interfaces.Users;
 using System;
