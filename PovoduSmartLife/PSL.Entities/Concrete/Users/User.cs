@@ -1,0 +1,20 @@
+﻿using PSL.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PSL.Entities.Concrete.Users
+{
+    public class User : BaseEntity, IEntity
+    {
+        public int Id { get; set; }
+        public string IdentificationName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool IsActive { get; set; } = true;
+        public bool IsDelete { get; set; } = false;
+        public virtual ICollection<UserRelation> UserRelations { get; set; }
+    }
+}
