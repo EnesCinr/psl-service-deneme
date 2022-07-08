@@ -13,8 +13,11 @@ namespace PSL.Entities.Concrete.Users
         public string IdentificationName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
         public bool IsActive { get; set; } = true;
         public bool IsDelete { get; set; } = false;
+        public byte[] PasswordSalt { get; set; }
+        public byte[] PasswordHash { get; set; }
         public virtual ICollection<UserRelation> UserRelations { get; set; }
     }
 }

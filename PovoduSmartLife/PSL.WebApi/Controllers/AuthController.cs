@@ -34,9 +34,11 @@ namespace PSL.WebApi.Controllers
 
         private async Task<IDataResult<JwtAuthUser>> UserLogin(LoginDto loginDto)
         {
-            var userToLogin = RegexHelper.IsEmail(loginDto.IdentifierInfo)
-                ? await _authService.LoginWithEmail(loginDto.IdentifierInfo, loginDto.Password, GenerateIPAddress())
-                : await _authService.LoginWithUsername(loginDto.IdentifierInfo, loginDto.Password, GenerateIPAddress());
+            var userToLogin = await _authService.LoginWithUsername(loginDto.IdentifierInfo, loginDto.Password, GenerateIPAddress());
+            //mail ile login için kullanılabilir.
+            //RegexHelper.IsEmail(loginDto.IdentifierInfo)
+                //? await _authService.LoginWithEmail(loginDto.IdentifierInfo, loginDto.Password, GenerateIPAddress())
+                //: await _authService.LoginWithUsername(loginDto.IdentifierInfo, loginDto.Password, GenerateIPAddress());
 
             if (!userToLogin.Success)
                 return new ErrorDataResult<JwtAuthUser>(userToLogin.Message);
@@ -50,6 +52,7 @@ namespace PSL.WebApi.Controllers
 
         private async Task<IActionResult> GetUserAccessInformations(JwtAuthUser jwtAuthUser)
         {
+            //düzenle
             return Ok();
         }
     }
