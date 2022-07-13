@@ -3,6 +3,7 @@ using PSL.Business.Interfaces;
 using PSL.Core.Entities.Concrete;
 using PSL.Core.Utilities.Results;
 using PSL.Core.Utilities.Security.Hashing;
+using PSL.Core.Utilities.Security.Jwt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace PSL.Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        private readonly ITokenHelper _tokenHelper;
         private readonly IUserService _userService;
-        public AuthManager(IUserService userService)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
         {
             _userService = userService;
+            _tokenHelper = tokenHelper;
         }
 
         public Task<IDataResult<string>> GetClaim(string accessToken, string claimType)
@@ -33,6 +36,12 @@ namespace PSL.Business.Concrete
         {
             var userToCheck = await _userService.GetByUsername(identifierName);
             return await UserLoginCheck(userToCheck.Data, password, ip);
+        }
+
+        public IDataResult<AccesToken> CreateAccessToken(JwtAuthUser user)
+        {
+            var accessToken = _tokenHelper.CreateToken(user);
+            return new SuccessDataResult<AccesToken>(accessToken, Messages.AccessTokenCreated);
         }
 
         /// <summary>
@@ -53,7 +62,7 @@ namespace PSL.Business.Concrete
 
                 //if (!isAdminLogin)
                 //{
-                    //await _userService.ProcessLoginFailed(userToCheck.Id);
+                    await _userService.ProcessLoginFailed(userToCheck.Id);
                     return new ErrorDataResult<JwtAuthUser>(Messages.WrongUsernameOrPasswrod);
                 //}
             }

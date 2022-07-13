@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Primitives;
 using PSL.Core.Entities.Concrete;
 using PSL.Core.Utilities.Results;
+using PSL.Core.Utilities.Security.Jwt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace PSL.Business.Interfaces
         Task<IDataResult<JwtAuthUser>> LoginWithEmail(string email, string password, string ip);
         Task<IDataResult<JwtAuthUser>> LoginWithUsername(string email, string password, string ip);
         Task<IDataResult<string>> GetClaim(string accessToken, string claimType);
+        IDataResult<AccesToken> CreateAccessToken(JwtAuthUser user);
     }
 }

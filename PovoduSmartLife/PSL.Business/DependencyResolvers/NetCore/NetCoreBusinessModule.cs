@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PSL.Business.Concrete;
+using PSL.Business.Interfaces;
 using PSL.Core.Utilities.Security.Jwt;
 using PSL.DataAccess.Concrete.EntityFramework.Dal.Devices;
 using PSL.DataAccess.Concrete.EntityFramework.Dal.Users;
@@ -18,9 +20,11 @@ namespace PSL.DependencyResolvers.NetCore
         public static void Common(IServiceCollection services)
         {
 
-            //Buna bak
+            #region Token
             services.AddScoped<ITokenHelper, JwtHelper>();
+            #endregion
 
+            #region Dals
             services.AddScoped<IDeviceDal, EFDeviceDal>();
             services.AddScoped<IDeviceTypeDal, EFDeviceTypeDal>();
             services.AddScoped<IUserDal, EFUserDal>();
@@ -28,6 +32,13 @@ namespace PSL.DependencyResolvers.NetCore
             services.AddScoped<IUserRoomDal, EFUserRoomDal>();
             services.AddScoped<IUserDeviceDal, EFUserDeviceDal>();
             services.AddScoped<IUserRelationDal, EFUserRelationDal>();
+            #endregion
+
+            #region Services
+            services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<IUserService, UserManager>();
+            #endregion
+
 
         }
     }

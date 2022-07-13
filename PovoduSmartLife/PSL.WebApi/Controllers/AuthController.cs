@@ -16,15 +16,16 @@ namespace PSL.WebApi.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
+        private readonly IUserService _userService;
 
-        public AuthController(IMapper mapper, IAuthService authService) : base(authService)
+        public AuthController(IMapper mapper, IAuthService authService, IUserService userService) : base(authService)
         {
             _mapper = mapper;
             _authService = authService;
+            _userService = userService;
         }
 
         [HttpPost]
-        // TODO: İçerik business'a taşınmalı.
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var user = await UserLogin(loginDto);
@@ -51,9 +52,19 @@ namespace PSL.WebApi.Controllers
         }
 
         private async Task<IActionResult> GetUserAccessInformations(JwtAuthUser jwtAuthUser)
-        {
-            //düzenle
-            return Ok();
+        {            
+
+            var result = _authService.CreateAccessToken(jwtAuthUser);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            // TODO: model oluşturalım daha sonra.
+            return Ok(new
+            {
+                user = jwtAuthUser,
+                accessToken = result.Data.Token,
+                accessTokenExpiration = result.Data.Expiration
+            });
         }
     }
 }

@@ -9,7 +9,6 @@ namespace PSL.WebApi.Controllers
 {
     public class BaseController : ControllerBase
     {
-        //private readonly IAuthService _authService;
         private readonly IAuthService _authService;
 
         public BaseController(IAuthService authService)

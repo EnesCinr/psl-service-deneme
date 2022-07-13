@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PSL.DataAccess.Concrete.EntityFramework.Context;
 
@@ -11,9 +12,10 @@ using PSL.DataAccess.Concrete.EntityFramework.Context;
 namespace PSL.DataAccess.Migrations
 {
     [DbContext(typeof(SmartHomeManagementContext))]
-    partial class SmartHomeManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20220713122042_EmailNullable")]
+    partial class EmailNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,6 +112,7 @@ namespace PSL.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdentificationName")
@@ -123,6 +126,7 @@ namespace PSL.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("PasswordHash")

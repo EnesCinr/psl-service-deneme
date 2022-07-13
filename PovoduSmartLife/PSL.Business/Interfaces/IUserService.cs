@@ -1,5 +1,6 @@
 ﻿using PSL.Core.Utilities.Results;
 using PSL.Entities.Concrete.Users;
+using PSL.Entities.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace PSL.Business.Interfaces
         Task<IDataResult<User>> GetById(int userId);        
         Task<IDataResult<User>> GetByUsername(string İdentificationName);
         Task<IResult> ProcessLoginFailed(int userId);
+        Task<IDataResult<int>> Add(UserCreateDto user, int createdByUserId);
     }
 }
