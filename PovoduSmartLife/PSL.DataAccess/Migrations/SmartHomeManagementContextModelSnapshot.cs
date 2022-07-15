@@ -36,7 +36,27 @@ namespace PSL.DataAccess.Migrations
                     b.Property<int>("CreatedUser")
                         .HasColumnType("int");
 
+                    b.Property<string>("DeviceJsonValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DeviceNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeviceType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeKitPairNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HomeKitSetupId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -46,7 +66,70 @@ namespace PSL.DataAccess.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsHomeKitDevice")
+                        .HasColumnType("bit");
+
                     b.Property<string>("MacAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedUser")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Devices");
+                });
+
+            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUser")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Latitude")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -62,10 +145,10 @@ namespace PSL.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("PSL.Entities.Concrete.Devices.DeviceType", b =>
+            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,23 +156,38 @@ namespace PSL.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("BackgroundImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedUser")
+                        .HasColumnType("int");
+
                     b.Property<string>("Icon")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedUser")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("DeviceTypes");
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("PSL.Entities.Concrete.Users.User", b =>
@@ -308,6 +406,28 @@ namespace PSL.DataAccess.Migrations
                     b.ToTable("UserRooms");
                 });
 
+            modelBuilder.Entity("PSL.Entities.Concrete.Devices.Device", b =>
+                {
+                    b.HasOne("PSL.Entities.Concrete.Locations.Room", "Room")
+                        .WithMany("Devices")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Room", b =>
+                {
+                    b.HasOne("PSL.Entities.Concrete.Locations.Location", "Location")
+                        .WithMany("Rooms")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("PSL.Entities.Concrete.Users.UserDevice", b =>
                 {
                     b.HasOne("PSL.Entities.Concrete.Devices.Device", "Device")
@@ -346,6 +466,16 @@ namespace PSL.DataAccess.Migrations
                     b.Navigation("UserLocation");
 
                     b.Navigation("UserRoom");
+                });
+
+            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Location", b =>
+                {
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Room", b =>
+                {
+                    b.Navigation("Devices");
                 });
 
             modelBuilder.Entity("PSL.Entities.Concrete.Users.User", b =>

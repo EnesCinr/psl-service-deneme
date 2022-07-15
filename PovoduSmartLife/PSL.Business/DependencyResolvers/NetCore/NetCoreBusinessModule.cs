@@ -26,7 +26,6 @@ namespace PSL.DependencyResolvers.NetCore
 
             #region Dals
             services.AddScoped<IDeviceDal, EFDeviceDal>();
-            services.AddScoped<IDeviceTypeDal, EFDeviceTypeDal>();
             services.AddScoped<IUserDal, EFUserDal>();
             services.AddScoped<IUserLocationDal, EFUserLocationDal>();
             services.AddScoped<IUserRoomDal, EFUserRoomDal>();
