@@ -146,17 +146,19 @@ var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>()
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseSwagger(
-        options =>
+
+}
+app.UseSwagger(
+    options =>
+    {
+        options.RouteTemplate = "api/swagger/{documentName}/swagger.json";
+        options.PreSerializeFilters.Add((swagger, httpReq) =>
         {
-            options.RouteTemplate = "api/swagger/{documentName}/swagger.json";
-            options.PreSerializeFilters.Add((swagger, httpReq) =>
-            {
-                swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"https://{httpReq.Host.Value}" }, new OpenApiServer { Url = $"http://{httpReq.Host.Value}" } };
-            });
-        }
-        );
-    app.UseSwaggerUI(
+            swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"https://{httpReq.Host.Value}" }, new OpenApiServer { Url = $"http://{httpReq.Host.Value}" } };
+        });
+    }
+);
+app.UseSwaggerUI(
     options =>
     {
         options.DocExpansion(DocExpansion.None);
@@ -166,9 +168,8 @@ if (app.Environment.IsDevelopment())
             options.SwaggerEndpoint($"/api/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
             options.RoutePrefix = $"api/swagger";
         }
-    });
-}
-
+    }
+);
 
 app.UseHttpsRedirection();
 

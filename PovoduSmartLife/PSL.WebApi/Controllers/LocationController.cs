@@ -25,35 +25,35 @@ namespace PSL.WebApi.Controllers
         //}
 
         [HttpGet("{id}")]
-        public Location Get(int id)
+        public Task<Location> Get(int id)
         {
-            return new Location();
+            return _locationService.GetLocationAsync(x => x.Id == id);
         }
 
         [HttpGet]
-        public List<Location> Get()
+        public Task<ICollection<Location>> Get()
         {
-            return new List<Location>();
+            return _locationService.GetLocationListAsync(null);
         }
 
         [HttpPost]
         public void Add(LocationDto location)
         {
-            _locationService.AddLocation(location);
+            _locationService.AddLocationAsync(location);
         }
 
 
         [HttpPut]
         public void Update(LocationDto location)
         {
-
+            _locationService.UpdateLocationAsync(location);
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public void Delete(int locationId)
         {
-
+            _locationService.DeleteLocationAsync(locationId);
         }
     }
 }

@@ -9,6 +9,7 @@ using PSL.Entities.Dtos.Location;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,9 +23,9 @@ namespace PSL.Business.Concrete
             _locationDal = locationDal;
         }
 
-        public bool AddLocation(LocationDto location)
+        public Task AddLocationAsync(LocationDto location)
         {
-            _locationDal.Add(new Location
+           return _locationDal.Add(new Location
             {
                 Name = location.Name,
                 Icon = location.Icon,
@@ -35,8 +36,36 @@ namespace PSL.Business.Concrete
                 UpdatedUser = 4,
                 UpdatedDate = DateTime.Now
             });
+        }
 
-            return true;
+        public Task DeleteLocationAsync(int locationId)
+        {
+            return _locationDal.Delete(new Location { Id = locationId });
+        }
+
+        public Task<Location> GetLocationAsync(Expression<Func<Location, bool>> filter = null)
+        {
+            return _locationDal.GetAsync(filter);
+        }
+
+        public Task<ICollection<Location>> GetLocationListAsync(Expression<Func<Location, bool>> filter = null)
+        {
+            return _locationDal.GetListAsync(filter);
+        }
+
+        public Task UpdateLocationAsync(LocationDto location)
+        {
+            return _locationDal.Update(new Location
+            {
+                Name = location.Name,
+                Icon = location.Icon,
+                Latitude = location.Latitude,
+                Longitude = location.Longitude,
+                CreatedUser = 4,
+                CreatedDate = DateTime.Now,
+                UpdatedUser = 4,
+                UpdatedDate = DateTime.Now
+            });
         }
     }
 }
