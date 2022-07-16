@@ -115,6 +115,19 @@ builder.Services.AddSwaggerGen(
 //Set Ioc Core Modules
 builder.Services.AddDependencyResolvers(new ICoreModule[] { new CoreModule() });
 
+//CORS Define
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.WithOrigins(configuration.GetSection("CORS_URL").Get<string[]>());
+    });
+    options.AddPolicy("Methods", builder =>
+    {
+        builder.WithOrigins(configuration.GetSection("CORS_URL").Get<string[]>());
+    });
+});
+
 //NetCoreBusinessModule Dependency Injection 
 NetCoreBusinessModule.Common(builder.Services);
 
