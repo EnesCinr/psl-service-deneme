@@ -3,8 +3,10 @@ using PSL.Business.Concrete;
 using PSL.Business.Interfaces;
 using PSL.Core.Utilities.Security.Jwt;
 using PSL.DataAccess.Concrete.EntityFramework.Dal.Devices;
+using PSL.DataAccess.Concrete.EntityFramework.Dal.Location;
 using PSL.DataAccess.Concrete.EntityFramework.Dal.Users;
 using PSL.DataAccess.Interfaces.Devices;
+using PSL.DataAccess.Interfaces.Locations;
 using PSL.DataAccess.Interfaces.Users;
 using System;
 using System.Collections.Generic;
@@ -19,15 +21,14 @@ namespace PSL.DependencyResolvers.NetCore
     {
         public static void Common(IServiceCollection services)
         {
-
             #region Token
             services.AddScoped<ITokenHelper, JwtHelper>();
             #endregion
 
             #region Dals
             services.AddScoped<IDeviceDal, EFDeviceDal>();
+            services.AddScoped<ILocationDal, EFLocationDal>();
             services.AddScoped<IUserDal, EFUserDal>();
-            services.AddScoped<IUserLocationDal, EFUserLocationDal>();
             services.AddScoped<IUserRoomDal, EFUserRoomDal>();
             services.AddScoped<IUserDeviceDal, EFUserDeviceDal>();
             services.AddScoped<IUserRelationDal, EFUserRelationDal>();
@@ -36,9 +37,8 @@ namespace PSL.DependencyResolvers.NetCore
             #region Services
             services.AddScoped<IAuthService, AuthManager>();
             services.AddScoped<IUserService, UserManager>();
+            services.AddScoped<ILocationService, LocationManager>();
             #endregion
-
-
         }
     }
 }

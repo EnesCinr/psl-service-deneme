@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PSL.Business.Interfaces;
+using PSL.DataAccess.Interfaces.Locations;
+using PSL.Entities.Concrete.Locations;
+using PSL.Entities.Dtos.Location;
 
 namespace PSL.WebApi.Controllers
 {
@@ -8,34 +12,46 @@ namespace PSL.WebApi.Controllers
     [ApiController]
     public class LocationController : ControllerBase
     {
-        [HttpGet("{id}")]
-        public void Get(int id)
+        private readonly ILocationService _locationService;
+        public LocationController(ILocationService locationService)
         {
+            _locationService = locationService;
+        }
 
+        //private readonly ILocationDal _locationDal;
+        //public LocationController(ILocationDal locationDal)
+        //{
+        //    _locationDal = locationDal;
+        //}
+
+        [HttpGet("{id}")]
+        public Location Get(int id)
+        {
+            return new Location();
         }
 
         [HttpGet]
-        public void Get()
+        public List<Location> Get()
         {
-
+            return new List<Location>();
         }
 
         [HttpPost]
-        public void Post()
+        public void Add(LocationDto location)
         {
-
+            _locationService.AddLocation(location);
         }
 
 
         [HttpPut]
-        public void Put()
+        public void Update(LocationDto location)
         {
 
         }
 
 
         [HttpDelete]
-        public void Delete()
+        public void Delete(int locationId)
         {
 
         }
