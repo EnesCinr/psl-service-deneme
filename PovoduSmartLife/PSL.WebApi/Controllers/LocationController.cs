@@ -18,12 +18,6 @@ namespace PSL.WebApi.Controllers
             _locationService = locationService;
         }
 
-        //private readonly ILocationDal _locationDal;
-        //public LocationController(ILocationDal locationDal)
-        //{
-        //    _locationDal = locationDal;
-        //}
-
         [HttpGet("{id}")]
         public Task<Location> Get(int id)
         {
@@ -50,7 +44,7 @@ namespace PSL.WebApi.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{locationId}")]
         public void Delete(int locationId)
         {
             _locationService.DeleteLocationAsync(locationId);
