@@ -10,10 +10,10 @@ namespace PSL.WebApi.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/location")]
     [ApiController]
-    public class LocationController : ControllerBase
+    public class LocationController : BaseController
     {
         private readonly ILocationService _locationService;
-        public LocationController(ILocationService locationService)
+        public LocationController(ILocationService locationService, IAuthService authService) : base(authService)
         {
             _locationService = locationService;
         }
@@ -21,33 +21,38 @@ namespace PSL.WebApi.Controllers
         [HttpGet("{id}")]
         public Task<Location> Get(int id)
         {
-            return _locationService.GetLocationAsync(x => x.Id == id);
+            return _locationService.GetLocation(x => x.Id == id);
         }
 
         [HttpGet]
-        public Task<ICollection<Location>> Get()
+        public async Task<ICollection<Location>> Get()
         {
-            return _locationService.GetLocationListAsync(null);
+            return await _locationService.GetLocationList(null);
         }
 
         [HttpPost]
-        public void Add(LocationDto location)
+        public async Task<IActionResult> Add(LocationDto location)
         {
-            _locationService.AddLocationAsync(location);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _locationService.AddLocation(location, loggedUser.Id);
+            return Ok(result);
         }
 
 
         [HttpPut]
-        public void Update(LocationDto location)
+        public async Task<IActionResult> Update(LocationDto location)
         {
-            _locationService.UpdateLocationAsync(location);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _locationService.UpdateLocation(location, loggedUser.Id);
+            return Ok(result);
         }
 
 
         [HttpDelete("{locationId}")]
-        public void Delete(int locationId)
+        public async Task<IActionResult> Delete(int locationId)
         {
-            _locationService.DeleteLocationAsync(locationId);
+            var result = await _locationService.DeleteLocation(locationId);
+            return Ok(result);
         }
     }
 }

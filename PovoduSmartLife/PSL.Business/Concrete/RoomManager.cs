@@ -1,4 +1,6 @@
-﻿using PSL.Business.Interfaces;
+﻿using PSL.Business.Constants;
+using PSL.Business.Interfaces;
+using PSL.Core.Utilities.Results;
 using PSL.DataAccess.Interfaces.Rooms;
 using PSL.Entities.Concrete.Locations;
 using PSL.Entities.Dtos.Location;
@@ -14,49 +16,72 @@ namespace PSL.Business.Concrete
             _roomDal = roomDal;
         }
 
-        public Task AddRoomAsync(RoomDto room)
+        public async Task<IResult> AddRoom(RoomDto room, int userId)
         {
-            return _roomDal.Add(new Room
+            try
             {
-                Name = room.Name,
-                Icon = room.Icon,
-                LocationId = room.LocationId,
-                BackgroundImage = room.BackgroundImageUrl,
-                CreatedUser = 4,
-                CreatedDate = DateTime.Now,
-                UpdatedUser = 4,
-                UpdatedDate = DateTime.Now
-            });
-        }
-
-        public Task DeleteRoomAsync(int roomId)
-        {
-            return _roomDal.Delete(new Room { Id = roomId });
-        }
-
-        public Task<Room> GetRoomAsync(Expression<Func<Room, bool>> filter = null)
-        {
-            return _roomDal.GetAsync(filter);
-        }
-
-        public Task<ICollection<Room>> GetRoomListAsync(Expression<Func<Room, bool>> filter = null)
-        {
-            return _roomDal.GetListAsync(filter);
-        }
-
-        public Task UpdateRoomAsync(RoomDto room)
-        {
-            return _roomDal.Update(new Room
+                await _roomDal.Add(new Room
+                {
+                    Name = room.Name,
+                    Icon = room.Icon,
+                    LocationId = room.LocationId,
+                    BackgroundImage = room.BackgroundImageUrl,
+                    CreatedUser = userId,
+                    CreatedDate = DateTime.Now,
+                    UpdatedUser = userId,
+                    UpdatedDate = DateTime.Now
+                });
+            }
+            catch (Exception ex)
             {
-                Name = room.Name,
-                Icon = room.Icon,
-                LocationId = room.LocationId,
-                BackgroundImage = room.BackgroundImageUrl,
-                CreatedUser = 4,
-                CreatedDate = DateTime.Now,
-                UpdatedUser = 4,
-                UpdatedDate = DateTime.Now
-            });
+                return new ErrorResult(Messages.Failure_Added);
+            }
+
+            return new SuccessResult(Messages.Success_Added);
+        }
+
+        public async Task<IResult> DeleteRoom(int roomId)
+        {
+            try
+            {
+                await _roomDal.Delete(new Room { Id = roomId });
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult(Messages.Failure_Deleted);
+            }
+            return new SuccessResult(Messages.Success_Deleted);
+        }
+
+        public async Task<Room> GetRoom(Expression<Func<Room, bool>> filter = null)
+        {
+            return await _roomDal.GetAsync(filter);
+        }
+
+        public async Task<ICollection<Room>> GetRoomList(Expression<Func<Room, bool>> filter = null)
+        {
+            return await _roomDal.GetListAsync(filter);
+        }
+
+        public async Task<IResult> UpdateRoom(RoomDto room, int userId)
+        {
+            try
+            {
+                await _roomDal.Update(new Room
+                {
+                    Name = room.Name,
+                    Icon = room.Icon,
+                    LocationId = room.LocationId,
+                    BackgroundImage = room.BackgroundImageUrl,
+                    UpdatedUser = userId,
+                    UpdatedDate = DateTime.Now
+                });
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult(Messages.Failure_Updated);
+            }
+            return new SuccessResult(Messages.Success_Updated);
         }
     }
 }

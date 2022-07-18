@@ -28,6 +28,11 @@ namespace PSL.Business.Constants
         public const string Success_Deleted = "Kayıt silme işleminiz başarılı";
         public const string Success_Updated = "Kayıt güncelleme işleminiz başarılı";
 
+        public const string Failure = "İşleminiz başarısız";
+        public const string Failure_Added = "Kayıt ekleme işleminiz başarısız";
+        public const string Failure_Deleted = "Kayıt silme işleminiz başarısız";
+        public const string Failure_Updated = "Kayıt güncelleme işleminiz başarısız";
+
         public const string UserPasswordRulesError = "Kullanıcı şifresi en az 8 karakterden oluşmalıdır.Ayrıca en az bir büyük harf ve bir küçük harf içermelidir!";
 
         public const string AccessTokenCreated = "Kullanıcı token bilgisi oluşturuldu";

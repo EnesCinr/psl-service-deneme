@@ -9,44 +9,50 @@ namespace PSL.WebApi.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/room")]
     [ApiController]
-    public class RoomController : ControllerBase
+    public class RoomController : BaseController
     {
         private readonly IRoomService _roomService;
-        public RoomController(IRoomService roomService)
+
+        public RoomController(IRoomService roomService, IAuthService authService) : base(authService)
         {
             _roomService = roomService;
         }
 
         [HttpGet("{id}")]
-        public Task<Room> Get(int id)
+        public async Task<Room> Get(int id)
         {
-            return _roomService.GetRoomAsync(x => x.Id == id);
+            return await _roomService.GetRoom(x => x.Id == id);
         }
 
         [HttpGet]
-        public Task<ICollection<Room>> Get()
+        public async Task<ICollection<Room>> Get()
         {
-            return _roomService.GetRoomListAsync(null);
+            return await _roomService.GetRoomList(null);
         }
 
         [HttpPost]
-        public void Add(RoomDto room)
+        public async Task<IActionResult> Add(RoomDto room)
         {
-            _roomService.AddRoomAsync(room);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _roomService.AddRoom(room, loggedUser.Id);
+            return Ok(result);
         }
 
 
         [HttpPut]
-        public void Update(RoomDto room)
+        public async Task<IActionResult> Update(RoomDto room)
         {
-            _roomService.UpdateRoomAsync(room);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = _roomService.UpdateRoom(room, loggedUser.Id);
+            return Ok(result);
         }
 
 
         [HttpDelete("{id}")]
-        public void Delete(int roomId)
+        public async Task<IActionResult> Delete(int roomId)
         {
-            _roomService.DeleteRoomAsync(roomId);
+            var result = await _roomService.DeleteRoom(roomId);
+            return Ok(result);
         }
     }
 }
