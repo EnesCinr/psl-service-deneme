@@ -1,11 +1,8 @@
-﻿using PSL.Core.Models.Interface;
+﻿using Newtonsoft.Json;
+using PSL.Core.Models.Interface;
 using PSL.Core.Rest;
+using PSL.Entities.Dtos.ExternalService.MasterService;
 using PSL.MasterService.Business.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSL.MasterService.Business.Concrete
 {
@@ -18,12 +15,12 @@ namespace PSL.MasterService.Business.Concrete
             _masterServiceAccessSettings = masterServiceAccessSettings;
         }
 
-        public async Task<string> GetDevice(string macAddress)
+        public async Task<MasterDeviceDto> GetDevice(string deviceId, string macAddress)
         {
-            var url = $"{_masterServiceAccessSettings.Url}/device?macAddress={macAddress}";
+            var url = $"{_masterServiceAccessSettings.Url}/device?deviceId={deviceId}&macAddress={macAddress}";
             var response = await RestApiHelper.Get(url);
 
-            return response;
+            return JsonConvert.DeserializeObject<MasterDeviceDto>(response);
         }
     }
 }

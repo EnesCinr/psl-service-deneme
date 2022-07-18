@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PSL.Business.Interfaces
 {
-    internal interface IDeviceService
+    public interface IDeviceService
     {
         public Task AddDeviceAsync(DeviceDto device);
         public Task<Device> GetDeviceAsync(Expression<Func<Device, bool>> filter);
