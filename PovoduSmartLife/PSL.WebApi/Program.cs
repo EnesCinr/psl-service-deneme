@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PSL.Core.DependencyResolvers;
 using PSL.Core.Extensions;
+using PSL.Core.Models.Concrete;
+using PSL.Core.Models.Interface;
 using PSL.Core.Utilities.IoC;
 using PSL.Core.Utilities.Security.Encryption;
 using PSL.Core.Utilities.Security.Jwt;
@@ -54,6 +56,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 var basePath = AppContext.BaseDirectory;
 var xmlFileName = typeof(Program).Assembly.GetName().Name + ".xml";
 var XmlCommentsFilePath = Path.Combine(basePath, xmlFileName);
+
+//Master servisinin baðlantý bilgileri
+builder.Services.Configure<MasterServiceAccessSettings>(configuration.GetSection("MasterServiceAccessSettings"));
+builder.Services.AddSingleton<IMasterServiceAccessSettings>(sp => sp.GetRequiredService<IOptions<MasterServiceAccessSettings>>().Value);
 
 builder.Services.AddApiVersioning(
     options =>

@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSL.DataAccess", "PSL.DataA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSL.Entities", "PSL.Entities\PSL.Entities.csproj", "{52318124-F416-44D0-8158-7BC483375D76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSL.WebApi", "PSL.WebApi\PSL.WebApi.csproj", "{342835D0-6C76-4657-A078-A2E4AE1EB44B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSL.WebApi", "PSL.WebApi\PSL.WebApi.csproj", "{342835D0-6C76-4657-A078-A2E4AE1EB44B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalServices", "ExternalServices", "{15AA713D-5822-42C4-BA50-5E24E9B488FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSL.MasterService", "PSL.MasterService\PSL.MasterService.csproj", "{02B38B14-16BC-48D6-9A45-FF7A3FA77672}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{342835D0-6C76-4657-A078-A2E4AE1EB44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{342835D0-6C76-4657-A078-A2E4AE1EB44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{342835D0-6C76-4657-A078-A2E4AE1EB44B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B38B14-16BC-48D6-9A45-FF7A3FA77672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B38B14-16BC-48D6-9A45-FF7A3FA77672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B38B14-16BC-48D6-9A45-FF7A3FA77672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B38B14-16BC-48D6-9A45-FF7A3FA77672}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02B38B14-16BC-48D6-9A45-FF7A3FA77672} = {15AA713D-5822-42C4-BA50-5E24E9B488FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1CF0DAE6-9FC2-472F-9265-77A6FCE4EABB}

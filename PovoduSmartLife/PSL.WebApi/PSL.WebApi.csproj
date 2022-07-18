@@ -25,6 +25,7 @@
     <ProjectReference Include="..\PSL.Business\PSL.Business.csproj" />
     <ProjectReference Include="..\PSL.Core\PSL.Core.csproj" />
     <ProjectReference Include="..\PSL.DataAccess\PSL.DataAccess.csproj" />
+    <ProjectReference Include="..\PSL.MasterService\PSL.MasterService.csproj" />
   </ItemGroup>
 
 </Project>
