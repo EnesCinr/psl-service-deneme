@@ -50,6 +50,7 @@ namespace PSL.WebApi.Controllers
         [HttpGet("isAdded")]
         public async Task<IActionResult> IsAddedDevice(string macAddress)
         {
+            //TODO böyle kod olmaz. Düzelt burayı!!!!
             Device device = null;
 
             int counter = 0;

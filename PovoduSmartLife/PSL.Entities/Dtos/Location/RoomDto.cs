@@ -11,7 +11,7 @@ namespace PSL.Entities.Dtos.Location
         public int Id { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
-        public string BackgroundImageUrl { get; set; }
+        public string BackgroundImage { get; set; }
         public int LocationId { get; set; }
     }
 }

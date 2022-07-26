@@ -25,7 +25,7 @@ namespace PSL.Business.Concrete
                     Name = room.Name,
                     Icon = room.Icon,
                     LocationId = room.LocationId,
-                    BackgroundImage = room.BackgroundImageUrl,
+                    BackgroundImage = room.BackgroundImage,
                     CreatedUser = userId,
                     CreatedDate = DateTime.Now,
                     UpdatedUser = userId,
@@ -48,7 +48,7 @@ namespace PSL.Business.Concrete
             }
             catch (Exception ex)
             {
-                return new ErrorResult(Messages.Failure_Deleted);
+                return new ErrorResult(ex.Message);
             }
             return new SuccessResult(Messages.Success_Deleted);
         }
@@ -72,7 +72,7 @@ namespace PSL.Business.Concrete
                     Name = room.Name,
                     Icon = room.Icon,
                     LocationId = room.LocationId,
-                    BackgroundImage = room.BackgroundImageUrl,
+                    BackgroundImage = room.BackgroundImage,
                     UpdatedUser = userId,
                     UpdatedDate = DateTime.Now
                 });

@@ -33,8 +33,8 @@ namespace PSL.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(RoomDto room)
         {
-            var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _roomService.AddRoom(room, loggedUser.Id);
+            //var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _roomService.AddRoom(room, 4);// loggedUser.Id);
             return Ok(result);
         }
 
@@ -42,13 +42,13 @@ namespace PSL.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(RoomDto room)
         {
-            var loggedUser = await base.GetLoggedUserInformation();
-            var result = _roomService.UpdateRoom(room, loggedUser.Id);
+            //var loggedUser = await base.GetLoggedUserInformation();
+            var result = _roomService.UpdateRoom(room, 4);// loggedUser.Id);
             return Ok(result);
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{roomId}")]
         public async Task<IActionResult> Delete(int roomId)
         {
             var result = await _roomService.DeleteRoom(roomId);

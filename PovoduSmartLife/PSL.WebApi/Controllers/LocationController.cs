@@ -33,8 +33,8 @@ namespace PSL.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(LocationDto location)
         {
-            var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _locationService.AddLocation(location, loggedUser.Id);
+            //var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _locationService.AddLocation(location, 4);
             return Ok(result);
         }
 
@@ -42,8 +42,8 @@ namespace PSL.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(LocationDto location)
         {
-            var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _locationService.UpdateLocation(location, loggedUser.Id);
+            //var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _locationService.UpdateLocation(location, 4);// loggedUser.Id);
             return Ok(result);
         }
 
