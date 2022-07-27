@@ -52,7 +52,10 @@ namespace PSL.WebApi.Controllers
         public async Task<IActionResult> Delete(int roomId)
         {
             var result = await _roomService.DeleteRoom(roomId);
-            return Ok(result);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
     }
 }

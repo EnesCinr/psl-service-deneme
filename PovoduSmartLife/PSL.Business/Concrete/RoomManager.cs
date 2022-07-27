@@ -44,7 +44,10 @@ namespace PSL.Business.Concrete
         {
             try
             {
-                await _roomDal.Delete(new Room { Id = roomId });
+                var deleteRoom = await _roomDal.GetByIdAsync(roomId);
+                if (deleteRoom == null)
+                    throw new Exception(Messages.Failure_Deleted);
+                await _roomDal.Delete(deleteRoom);
             }
             catch (Exception ex)
             {

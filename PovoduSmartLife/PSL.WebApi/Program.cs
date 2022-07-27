@@ -35,7 +35,7 @@ var connectionString = configuration.GetSection("DefaultConnection").Value;
 builder.Services.AddDbContext<SmartHomeManagementContext>(options =>
 {
     options.UseSqlServer(connectionString, sqlOptions => sqlOptions.CommandTimeout(180));
-}, ServiceLifetime.Singleton);//ersen => singleton mu scope mu bakalým.
+}, ServiceLifetime.Scoped);//ersen => singleton mu scope mu bakalým.
 
 
 var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
