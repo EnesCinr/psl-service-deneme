@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PSL.Entities.Dtos.Location
+namespace PSL.Entities.Dtos.Place
 {
-    public class LocationDto
+    public class PlaceDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

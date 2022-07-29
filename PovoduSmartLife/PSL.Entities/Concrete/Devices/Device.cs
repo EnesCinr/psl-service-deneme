@@ -1,5 +1,5 @@
 ﻿using PSL.Core.Entities;
-using PSL.Entities.Concrete.Locations;
+using PSL.Entities.Concrete.Places;
 using System;
 using System.Collections.Generic;
 using System.Linq;

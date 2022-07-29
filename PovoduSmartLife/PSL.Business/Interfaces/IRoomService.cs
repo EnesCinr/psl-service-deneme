@@ -1,12 +1,7 @@
 ﻿using PSL.Core.Utilities.Results;
-using PSL.Entities.Concrete.Locations;
-using PSL.Entities.Dtos.Location;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using PSL.Entities.Concrete.Places;
+using PSL.Entities.Dtos.Place;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSL.Business.Interfaces
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PSL.Business.Interfaces;
-using PSL.Entities.Concrete.Locations;
-using PSL.Entities.Dtos.Location;
+using PSL.Entities.Concrete.Places;
+using PSL.Entities.Dtos.Place;
 
 namespace PSL.WebApi.Controllers
 {

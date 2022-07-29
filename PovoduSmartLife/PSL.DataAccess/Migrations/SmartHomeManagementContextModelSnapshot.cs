@@ -101,7 +101,7 @@ namespace PSL.DataAccess.Migrations
                     b.ToTable("Devices");
                 });
 
-            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Location", b =>
+            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Place", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace PSL.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Places");
                 });
 
             modelBuilder.Entity("PSL.Entities.Concrete.Locations.Room", b =>
@@ -177,6 +177,9 @@ namespace PSL.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -185,7 +188,7 @@ namespace PSL.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("PlaceId");
 
                     b.ToTable("Rooms");
                 });
@@ -419,13 +422,13 @@ namespace PSL.DataAccess.Migrations
 
             modelBuilder.Entity("PSL.Entities.Concrete.Locations.Room", b =>
                 {
-                    b.HasOne("PSL.Entities.Concrete.Locations.Location", "Location")
+                    b.HasOne("PSL.Entities.Concrete.Locations.Place", "Place")
                         .WithMany("Rooms")
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Location");
+                    b.Navigation("Place");
                 });
 
             modelBuilder.Entity("PSL.Entities.Concrete.Users.UserDevice", b =>
@@ -468,7 +471,7 @@ namespace PSL.DataAccess.Migrations
                     b.Navigation("UserRoom");
                 });
 
-            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Location", b =>
+            modelBuilder.Entity("PSL.Entities.Concrete.Locations.Place", b =>
                 {
                     b.Navigation("Rooms");
                 });

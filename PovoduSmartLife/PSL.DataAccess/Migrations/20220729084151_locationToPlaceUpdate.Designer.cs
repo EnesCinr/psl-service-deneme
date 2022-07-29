@@ -12,8 +12,8 @@ using PSL.DataAccess.Concrete.EntityFramework.Context;
 namespace PSL.DataAccess.Migrations
 {
     [DbContext(typeof(SmartHomeManagementContext))]
-    [Migration("20220715122846_LocationAndRoomAdded")]
-    partial class LocationAndRoomAdded
+    [Migration("20220729084151_locationToPlaceUpdate")]
+    partial class locationToPlaceUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -179,6 +179,9 @@ namespace PSL.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -187,7 +190,7 @@ namespace PSL.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("PlaceId");
 
                     b.ToTable("Rooms");
                 });
@@ -423,7 +426,7 @@ namespace PSL.DataAccess.Migrations
                 {
                     b.HasOne("PSL.Entities.Concrete.Locations.Place", "Place")
                         .WithMany("Rooms")
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

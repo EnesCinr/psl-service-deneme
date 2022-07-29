@@ -1,13 +1,8 @@
 ﻿using PSL.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PSL.Entities.Concrete.Locations
+namespace PSL.Entities.Concrete.Places
 {
-    public class Location : BaseEntity, IEntity
+    public class Place : BaseEntity, IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

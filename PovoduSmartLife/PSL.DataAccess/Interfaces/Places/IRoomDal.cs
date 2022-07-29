@@ -1,5 +1,5 @@
 ﻿using PSL.Core.DataAccess;
-using PSL.Entities.Concrete.Locations;
+using PSL.Entities.Concrete.Places;
 
 namespace PSL.DataAccess.Interfaces.Rooms
 {

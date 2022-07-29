@@ -1,12 +1,7 @@
 ﻿using PSL.Core.Entities;
 using PSL.Entities.Concrete.Devices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PSL.Entities.Concrete.Locations
+namespace PSL.Entities.Concrete.Places
 {
     public class Room : BaseEntity, IEntity
     {
@@ -16,7 +11,7 @@ namespace PSL.Entities.Concrete.Locations
         public string Icon { get; set; }
         public string BackgroundImage { get; set; }
 
-        public virtual Location Location { get; set; }
+        public virtual Place Place { get; set; }
         public virtual ICollection<Device> Devices { get; set; }
     }
 }

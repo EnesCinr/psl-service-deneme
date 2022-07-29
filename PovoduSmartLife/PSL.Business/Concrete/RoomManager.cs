@@ -2,8 +2,8 @@
 using PSL.Business.Interfaces;
 using PSL.Core.Utilities.Results;
 using PSL.DataAccess.Interfaces.Rooms;
-using PSL.Entities.Concrete.Locations;
-using PSL.Entities.Dtos.Location;
+using PSL.Entities.Concrete.Places;
+using PSL.Entities.Dtos.Place;
 using System.Linq.Expressions;
 
 namespace PSL.Business.Concrete
