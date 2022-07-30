@@ -43,7 +43,7 @@ namespace PSL.WebApi.Controllers
         public async Task<IActionResult> Update(RoomDto room)
         {
             //var loggedUser = await base.GetLoggedUserInformation();
-            var result = _roomService.UpdateRoom(room, 4);// loggedUser.Id);
+            var result = await _roomService.UpdateRoom(room, 4);// loggedUser.Id);
             return Ok(result);
         }
 

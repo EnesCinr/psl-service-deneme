@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PSL.Entities.Dtos.Place;
 using PSL.Entities.Dtos.User;
 
 namespace PSL.Entities.Dtos._Profiles
@@ -12,6 +13,9 @@ namespace PSL.Entities.Dtos._Profiles
             CreateMap<Concrete.Users.User, Core.Entities.Concrete.JwtAuthUser>()
                 .ForPath(dst => dst.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForPath(dst => dst.LastName, opt => opt.MapFrom(src => src.LastName));
+
+            CreateMap<RoomDto, Concrete.Places.Room>();
+            CreateMap<Concrete.Places.Room, RoomDto>();
         }
     }
 }

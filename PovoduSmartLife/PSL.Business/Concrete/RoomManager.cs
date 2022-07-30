@@ -66,11 +66,31 @@ namespace PSL.Business.Concrete
             return await _roomDal.GetListAsync(filter);
         }
 
+        public async Task<IResult> UpdateRoom_2222(RoomDto room, int userId)
+        {
+            try
+            {
+                Room updated = await _roomDal.GetByIdAsync(room.Id);
+                if (updated.Name != room.Name) updated.Name = room.Name;
+                if (updated.Icon != room.Icon) updated.Icon = room.Icon;
+                if (updated.BackgroundImage != room.BackgroundImage) updated.BackgroundImage = room.BackgroundImage;
+                if (updated.PlaceId != room.PlaceId) updated.PlaceId = room.PlaceId;
+                updated.UpdatedDate = DateTime.Now;
+                updated.UpdatedUser = userId;
+                await _roomDal.Update(updated);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult(Messages.Failure_Updated);
+            }
+            return new SuccessResult(Messages.Success_Updated);
+        }
+
         public async Task<IResult> UpdateRoom(RoomDto room, int userId)
         {
             try
             {
-                Room updated = await _roomDal.GetAsync(x => x.Id == room.Id);
+                Room updated = await _roomDal.GetByIdAsync(room.Id);
                 if (updated.Name != room.Name) updated.Name = room.Name;
                 if (updated.Icon != room.Icon) updated.Icon = room.Icon;
                 if (updated.BackgroundImage != room.BackgroundImage) updated.BackgroundImage = room.BackgroundImage;

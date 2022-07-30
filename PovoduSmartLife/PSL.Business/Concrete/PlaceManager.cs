@@ -67,7 +67,7 @@ namespace PSL.Business.Concrete
         {
             try
             {
-                Place updated = await _placeDal.GetAsync(x => x.Id == place.Id);
+                Place updated = await _placeDal.GetByIdAsync(place.Id);
                 if (updated.Name != place.Name) updated.Name = place.Name;
                 if (updated.Icon != place.Icon) updated.Icon = place.Icon;
                 if (updated.Latitude != place.Latitude) updated.Latitude = place.Latitude;
