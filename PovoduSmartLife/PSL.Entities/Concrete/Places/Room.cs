@@ -7,7 +7,7 @@ namespace PSL.Entities.Concrete.Places
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int LocationId { get; set; }
+        public int PlaceId { get; set; }
         public string Icon { get; set; }
         public string BackgroundImage { get; set; }
 

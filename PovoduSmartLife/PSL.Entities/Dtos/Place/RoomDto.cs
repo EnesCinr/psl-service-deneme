@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public string Icon { get; set; }
         public string BackgroundImage { get; set; }
-        public int LocationId { get; set; }
+        public int PlaceId { get; set; }
     }
 }

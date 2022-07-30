@@ -24,7 +24,7 @@ namespace PSL.Business.Concrete
                 {
                     Name = room.Name,
                     Icon = room.Icon,
-                    LocationId = room.LocationId,
+                    PlaceId = room.PlaceId,
                     BackgroundImage = room.BackgroundImage,
                     CreatedUser = userId,
                     CreatedDate = DateTime.Now,
@@ -70,15 +70,14 @@ namespace PSL.Business.Concrete
         {
             try
             {
-                await _roomDal.Update(new Room
-                {
-                    Name = room.Name,
-                    Icon = room.Icon,
-                    LocationId = room.LocationId,
-                    BackgroundImage = room.BackgroundImage,
-                    UpdatedUser = userId,
-                    UpdatedDate = DateTime.Now
-                });
+                Room updated = await _roomDal.GetAsync(x => x.Id == room.Id);
+                if (updated.Name != room.Name) updated.Name = room.Name;
+                if (updated.Icon != room.Icon) updated.Icon = room.Icon;
+                if (updated.BackgroundImage != room.BackgroundImage) updated.BackgroundImage = room.BackgroundImage;
+                if (updated.PlaceId != room.PlaceId) updated.PlaceId = room.PlaceId;
+                updated.UpdatedDate = DateTime.Now;
+                updated.UpdatedUser = userId;
+                await _roomDal.Update(updated);
             }
             catch (Exception ex)
             {
