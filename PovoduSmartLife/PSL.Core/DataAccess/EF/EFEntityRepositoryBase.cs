@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSL.Core.Entities;
+using PSL.Core.Utilities.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -52,6 +55,20 @@ namespace PSL.Core.DataAccess.EF
             if (entity == null) return;
 
             _dbSet.Update(entity);
+
+            #region Exclude Update Property
+
+           var properties =  entity.GetType().GetProperties();
+
+            foreach (var property in properties)
+            {
+                var attributes = property.GetCustomAttributes(typeof(NeverUpdateAttribute), false);
+                if (attributes.Length > 0)
+                    _context.Entry(entity).Property(property.Name).IsModified = false;
+            }
+
+            #endregion
+
             await _context.SaveChangesAsync();
         }
 

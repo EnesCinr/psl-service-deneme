@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,8 @@ using PSL.Core.Utilities.Security.Encryption;
 using PSL.Core.Utilities.Security.Jwt;
 using PSL.DataAccess.Concrete.EntityFramework.Context;
 using PSL.DependencyResolvers.NetCore;
+using PSL.Entities.DependencyResolvers.NetCore;
+using PSL.Entities.Dtos._Profiles;
 using PSL.WebApi.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -26,7 +29,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(Program));
+
+
+builder.Services.AddControllersWithViews();
 
 IConfiguration configuration = builder.Configuration;
 
@@ -136,6 +141,9 @@ builder.Services.AddCors(options =>
 
 //NetCoreBusinessModule Dependency Injection 
 NetCoreBusinessModule.Common(builder.Services);
+
+//NetCoreEntitiesModule Dependency Injection 
+NetCoreEntitiesModule.Common(builder.Services);
 
 
 var app = builder.Build();

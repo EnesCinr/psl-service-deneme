@@ -1,4 +1,5 @@
-﻿using PSL.Business.Constants;
+﻿using AutoMapper;
+using PSL.Business.Constants;
 using PSL.Business.Interfaces;
 using PSL.Core.Utilities.Results;
 using PSL.DataAccess.Interfaces.Places;
@@ -11,9 +12,11 @@ namespace PSL.Business.Concrete
     public class PlaceManager : IPlaceService
     {
         private readonly IPlaceDal _placeDal;
-        public PlaceManager(IPlaceDal placeDal)
+        private readonly IMapper _mapper;
+        public PlaceManager(IPlaceDal placeDal, IMapper mapper)
         {
             _placeDal = placeDal;
+            _mapper = mapper;
         }
 
         public async Task<IResult> AddPlace(PlaceDto place, int userId)
@@ -67,11 +70,7 @@ namespace PSL.Business.Concrete
         {
             try
             {
-                Place updated = await _placeDal.GetByIdAsync(place.Id);
-                if (updated.Name != place.Name) updated.Name = place.Name;
-                if (updated.Icon != place.Icon) updated.Icon = place.Icon;
-                if (updated.Latitude != place.Latitude) updated.Latitude = place.Latitude;
-                if (updated.Longitude != place.Longitude) updated.Longitude = place.Longitude;
+                var updated = _mapper.Map<Place>(place);
                 updated.UpdatedDate = DateTime.Now;
                 updated.UpdatedUser = userId;
                 await _placeDal.Update(updated);
