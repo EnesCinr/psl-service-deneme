@@ -36,6 +36,25 @@ namespace PSL.Business.Concrete
             return new SuccessResult(Messages.Success_Added);
         }
 
+        public async Task<IResult> AddRooms(List<RoomDto> rooms, int userId)
+        {
+            try
+            {
+                var mappedRooms = _mapper.Map<List<Room>>(rooms);
+                var datetimeNow = DateTime.Now;
+                mappedRooms.ForEach(f => f.CreatedDate = datetimeNow);
+                mappedRooms.ForEach(f => f.CreatedUser = userId);
+
+                await _roomDal.AddRangeAsync(mappedRooms);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult(ex.Message);
+            }
+
+            return new SuccessResult(Messages.Success_Added);
+        }
+
         public async Task<IResult> DeleteRoom(int roomId)
         {
             try

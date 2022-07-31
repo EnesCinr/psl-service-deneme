@@ -1,14 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PSL.Core.Entities;
 using PSL.Core.Utilities.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PSL.Core.DataAccess.EF
 {
@@ -58,7 +51,7 @@ namespace PSL.Core.DataAccess.EF
 
             #region Exclude Update Property
 
-           var properties =  entity.GetType().GetProperties();
+            var properties = entity.GetType().GetProperties();
 
             foreach (var property in properties)
             {

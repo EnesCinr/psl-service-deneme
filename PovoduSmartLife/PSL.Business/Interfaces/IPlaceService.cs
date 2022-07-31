@@ -12,5 +12,6 @@ namespace PSL.Business.Interfaces
         Task<ICollection<Place>> GetPlaceList(Expression<Func<Place, bool>> filter);
         Task<IResult> UpdatePlace(PlaceDto location, int userId);
         Task<IResult> DeletePlace(int locationId);
+        Task<IResult> AddPlaceWithRoomsForDefaultValue(PlaceWithRoomsForDefaultValueDto placeWithRoomsForDefaultValueDto, int userId);
     }
 }

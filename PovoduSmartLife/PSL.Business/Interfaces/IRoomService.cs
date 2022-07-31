@@ -8,6 +8,7 @@ namespace PSL.Business.Interfaces
     public interface IRoomService
     {
         Task<IResult> AddRoom(RoomDto room, int userId);
+        Task<IResult> AddRooms(List<RoomDto> rooms, int userId);
         Task<Room> GetRoom(Expression<Func<Room, bool>> filter);
         Task<ICollection<Room>> GetRoomList(Expression<Func<Room, bool>> filter);
         Task<IResult> UpdateRoom(RoomDto room, int userId);

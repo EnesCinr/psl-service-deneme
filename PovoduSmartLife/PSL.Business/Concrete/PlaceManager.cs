@@ -12,28 +12,23 @@ namespace PSL.Business.Concrete
     public class PlaceManager : IPlaceService
     {
         private readonly IPlaceDal _placeDal;
+        private readonly IRoomService _roomService;
         private readonly IMapper _mapper;
-        public PlaceManager(IPlaceDal placeDal, IMapper mapper)
+        public PlaceManager(IPlaceDal placeDal, IMapper mapper, IRoomService roomService)
         {
             _placeDal = placeDal;
             _mapper = mapper;
+            _roomService = roomService;
         }
 
         public async Task<IResult> AddPlace(PlaceDto place, int userId)
         {
             try
             {
-                await _placeDal.Add(new Place
-                {
-                    Name = place.Name,
-                    Icon = place.Icon,
-                    Latitude = place.Latitude,
-                    Longitude = place.Longitude,
-                    CreatedUser = userId,
-                    CreatedDate = DateTime.Now,
-                    UpdatedUser = userId,
-                    UpdatedDate = DateTime.Now
-                });
+                var mappedPlace = _mapper.Map<Place>(place);
+                mappedPlace.CreatedDate = DateTime.Now;
+                mappedPlace.CreatedUser = userId;
+                await _placeDal.Add(mappedPlace);
             }
             catch (Exception ex)
             {
@@ -41,6 +36,30 @@ namespace PSL.Business.Concrete
             }
 
             return new SuccessResult(Messages.Success_Added);
+        }
+
+        public async Task<IResult> AddPlaceWithRoomsForDefaultValue(PlaceWithRoomsForDefaultValueDto placeWithRoomsForDefaultValueDto, int userId)
+        {
+            try
+            {
+                var datetimeNow = DateTime.Now;
+
+                var mappedPlace = _mapper.Map<Place>(placeWithRoomsForDefaultValueDto.Place);
+                mappedPlace.CreatedDate = datetimeNow;
+                mappedPlace.CreatedUser = userId;
+
+                mappedPlace.Rooms = _mapper.Map<List<Room>>(placeWithRoomsForDefaultValueDto.Rooms);
+                var mappedPlaceList = mappedPlace.Rooms.ToList();
+                mappedPlaceList.ForEach(f => f.CreatedDate = datetimeNow);
+                mappedPlaceList.ForEach(f => f.CreatedUser = userId);
+
+                await _placeDal.Add(mappedPlace);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult(ex.Message);
+            }
+            return new SuccessResult(Messages.Success);
         }
 
         public async Task<IResult> DeletePlace(int placeId)
