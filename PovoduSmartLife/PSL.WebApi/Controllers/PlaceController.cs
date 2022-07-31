@@ -67,8 +67,8 @@ namespace PSL.WebApi.Controllers
         [HttpPost("add-default-values")]
         public async Task<IActionResult> AddPlaceWithRoomsForDefaultValue(PlaceWithRoomsForDefaultValueDto placeWithRoomsForDefaultValueDto)
         {
-            //var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _placeService.AddPlaceWithRoomsForDefaultValue(placeWithRoomsForDefaultValueDto, 4);//loggedUser.Id);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _placeService.AddPlaceWithRoomsForDefaultValue(placeWithRoomsForDefaultValueDto, loggedUser.Id);
             if (result.Success)
                 return Ok(result);
             else
