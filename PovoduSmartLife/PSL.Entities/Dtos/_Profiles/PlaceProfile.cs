@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PSL.Entities.Dtos._Profiles
 {
-    public class RoomProfile: Profile
+    public class PlaceProfile : Profile
     {
-        public RoomProfile()
+        public PlaceProfile()
         {
-            CreateMap<RoomDto, Concrete.Places.Room>().ReverseMap();
+            CreateMap<PlaceDto, Concrete.Places.Place>().ReverseMap();
         }
     }
 }

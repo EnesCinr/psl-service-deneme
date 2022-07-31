@@ -23,17 +23,10 @@ namespace PSL.Business.Concrete
         {
             try
             {
-                await _roomDal.Add(new Room
-                {
-                    Name = room.Name,
-                    Icon = room.Icon,
-                    PlaceId = room.PlaceId,
-                    BackgroundImage = room.BackgroundImage,
-                    CreatedUser = userId,
-                    CreatedDate = DateTime.Now,
-                    UpdatedUser = userId,
-                    UpdatedDate = DateTime.Now
-                });
+                var mappedRoom = _mapper.Map<Room>(room);
+                mappedRoom.CreatedDate = DateTime.Now;
+                mappedRoom.CreatedUser = userId;
+                await _roomDal.Add(mappedRoom);
             }
             catch (Exception ex)
             {
