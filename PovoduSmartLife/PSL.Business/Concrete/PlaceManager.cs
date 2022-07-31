@@ -37,7 +37,7 @@ namespace PSL.Business.Concrete
             }
             catch (Exception ex)
             {
-                return new ErrorResult(Messages.Failure_Added);
+                return new ErrorResult(ex.Message);
             }
 
             return new SuccessResult(Messages.Success_Added);
@@ -47,11 +47,14 @@ namespace PSL.Business.Concrete
         {
             try
             {
-                await _placeDal.Delete(new Place { Id = placeId });
+                var deletePlace = await _placeDal.GetByIdAsync(placeId);
+                if (deletePlace == null)
+                    throw new Exception(Messages.DataNotExists);
+                await _placeDal.Delete(deletePlace);
             }
             catch (Exception ex)
             {
-                return new ErrorResult(Messages.Failure_Deleted);
+                return new ErrorResult(ex.Message);
             }
             return new SuccessResult(Messages.Success_Deleted);
         }
@@ -77,7 +80,7 @@ namespace PSL.Business.Concrete
             }
             catch (Exception ex)
             {
-                return new ErrorResult(Messages.Failure_Updated);
+                return new ErrorResult(ex.Message);
             }
             return new SuccessResult(Messages.Success_Updated);
         }

@@ -37,7 +37,7 @@ namespace PSL.Business.Concrete
             }
             catch (Exception ex)
             {
-                return new ErrorResult(Messages.Failure_Added);
+                return new ErrorResult(ex.Message);
             }
 
             return new SuccessResult(Messages.Success_Added);
@@ -49,7 +49,7 @@ namespace PSL.Business.Concrete
             {
                 var deleteRoom = await _roomDal.GetByIdAsync(roomId);
                 if (deleteRoom == null)
-                    throw new Exception(Messages.Failure_Deleted);
+                    throw new Exception(Messages.DataNotExists);
                 await _roomDal.Delete(deleteRoom);
             }
             catch (Exception ex)
@@ -80,7 +80,7 @@ namespace PSL.Business.Concrete
             }
             catch (Exception ex)
             {
-                return new ErrorResult(Messages.Failure_Updated);
+                return new ErrorResult(ex.Message);
             }
             return new SuccessResult(Messages.Success_Updated);
         }

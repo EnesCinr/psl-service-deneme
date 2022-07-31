@@ -35,7 +35,10 @@ namespace PSL.WebApi.Controllers
         {
             //var loggedUser = await base.GetLoggedUserInformation();
             var result = await _roomService.AddRoom(room, 4);// loggedUser.Id);
-            return Ok(result);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
 
@@ -44,7 +47,10 @@ namespace PSL.WebApi.Controllers
         {
             //var loggedUser = await base.GetLoggedUserInformation();
             var result = await _roomService.UpdateRoom(room, 4);// loggedUser.Id);
-            return Ok(result);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
 

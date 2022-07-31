@@ -35,7 +35,10 @@ namespace PSL.WebApi.Controllers
         {
             //var loggedUser = await base.GetLoggedUserInformation();
             var result = await _placeService.AddPlace(place, 4);
-            return Ok(result);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
 
@@ -44,7 +47,10 @@ namespace PSL.WebApi.Controllers
         {
             //var loggedUser = await base.GetLoggedUserInformation();
             var result = await _placeService.UpdatePlace(place, 4);// loggedUser.Id);
-            return Ok(result);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
 
 
@@ -52,7 +58,10 @@ namespace PSL.WebApi.Controllers
         public async Task<IActionResult> Delete(int placeId)
         {
             var result = await _placeService.DeletePlace(placeId);
-            return Ok(result);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result.Message);
         }
     }
 }
