@@ -63,11 +63,12 @@ namespace PSL.Business.Concrete
             var userEntity = new User();
             //_mapper.Map(user, userEntity);
 
-            IResult result = BusinessRules.Run(await CheckIfUserUsernameAlreadyExists(user.UserName));
+            IResult result = BusinessRules.Run(await CheckIfUserUsernameAlreadyExists(user.Email));
             if (result != null)
                 throw new DuplicateNameException(result.Message);
 
-            userEntity.IdentificationName = user.UserName;
+            userEntity.IdentificationName = user.Email;
+            userEntity.Email = user.Email;
             userEntity.IsActive = true;
             HashingHelper.CreatePasswordHash(user.Password, out var passwordHash, out var passwordSalt);
             userEntity.PasswordSalt = passwordSalt;
