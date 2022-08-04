@@ -30,6 +30,11 @@ namespace PSL.WebApi.Controllers
         {
             var user = await UserLogin(loginDto);
 
+            if (!user.Success)
+            {
+                return BadRequest(user.Message);
+            }
+
             return await GetUserAccessInformations(user.Data);
         }
 

@@ -22,9 +22,13 @@ namespace PSL.Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        public Task<IDataResult<string>> GetClaim(string accessToken, string claimType)
+        public async Task<IDataResult<string>> GetClaim(string accessToken, string claimType)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            {
+                var result = _tokenHelper.GetClaim(accessToken, claimType);
+                return new DataResult<string>(result, true);
+            });
         }
 
         public Task<IDataResult<JwtAuthUser>> LoginWithEmail(string email, string password, string ip)
