@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace PSL.Entities.Concrete.Devices
 {
-    public class Device: BaseEntity, IEntity
+    public class Device : BaseEntity, IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string DeviceNumber { get; set; }
-        public int RoomId { get; set; }
-        public string DeviceType { get; set; }
-        public string SubType { get; set; }
+        public int? RoomId { get; set; }
+        public int DeviceTypeId { get; set; }
         public string Icon { get; set; }
         public string SerialNumber { get; set; }
         public string MacAddress { get; set; }
@@ -27,5 +26,7 @@ namespace PSL.Entities.Concrete.Devices
         public bool InUse { get; set; }
 
         public virtual Room Room { get; set; }
+        public virtual DeviceType DeviceType { get; set; }
+        public virtual DeviceTypeClassificationSelection DeviceTypeClassificationSelection { get; set; }
     }
 }

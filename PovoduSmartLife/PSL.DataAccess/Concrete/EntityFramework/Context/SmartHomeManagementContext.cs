@@ -29,6 +29,10 @@ namespace PSL.DataAccess.Concrete.EntityFramework.Context
         public virtual DbSet<UserRoom> UserRooms { get; set; }
         public virtual DbSet<UserDevice> UserDevices { get; set; }
         public virtual DbSet<UserRelation> UserRelations { get; set; }
+        public virtual DbSet<DeviceType> DeviceTypes { get; set; }
+        public virtual DbSet<DeviceTypeClassification> DeviceTypeClassifications { get; set; }
+        public virtual DbSet<DeviceTypeClassificationRelation> DeviceTypeClassificationRelations { get; set; }
+        public virtual DbSet<DeviceTypeClassificationSelection> DeviceTypeClassificationSelections { get; set; }
 
         #endregion
 
@@ -42,6 +46,11 @@ namespace PSL.DataAccess.Concrete.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new UserRoomMapping());
             modelBuilder.ApplyConfiguration(new UserDeviceMapping());
             modelBuilder.ApplyConfiguration(new UserRelationMapping());
+            modelBuilder.ApplyConfiguration(new DeviceTypeMapping());
+            modelBuilder.ApplyConfiguration(new DeviceTypeClassificationMapping());
+            modelBuilder.ApplyConfiguration(new DeviceTypeClassificationRelationMapping());
+            modelBuilder.ApplyConfiguration(new DeviceTypeClassificationSelectionMapping());
+
         }
     }
 }

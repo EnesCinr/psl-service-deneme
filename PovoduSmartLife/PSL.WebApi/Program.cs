@@ -16,6 +16,7 @@ using PSL.DataAccess.Concrete.EntityFramework.Context;
 using PSL.DependencyResolvers.NetCore;
 using PSL.Entities.DependencyResolvers.NetCore;
 using PSL.Entities.Dtos._Profiles;
+using PSL.MasterService.DependencyResolvers.NetCore;
 using PSL.WebApi.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -144,6 +145,9 @@ NetCoreBusinessModule.Common(builder.Services);
 
 //NetCoreEntitiesModule Dependency Injection 
 NetCoreEntitiesModule.Common(builder.Services);
+
+//NetCoreMasterServiceModule
+NetCoreMasterServiceModule.Common(builder.Services);
 
 
 var app = builder.Build();
