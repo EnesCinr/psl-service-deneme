@@ -6,7 +6,7 @@ using PSL.Entities.Dtos.User;
 namespace PSL.WebApi.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/users")]
+    [Route("api/v{version:apiVersion}/user")]
     [ApiController]
     public class UserController : BaseController
     {
@@ -14,9 +14,9 @@ namespace PSL.WebApi.Controllers
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IAuthService _authService;
-        
-        public UserController( 
-            IMapper mapper, 
+
+        public UserController(
+            IMapper mapper,
             IUserService userService,
             IAuthService authService) : base(authService)
         {
@@ -25,12 +25,20 @@ namespace PSL.WebApi.Controllers
             _authService = authService;
         }
 
-        [HttpPost("users/create")]
+        [HttpPost]
         public async Task<IActionResult> CreateUser(UserCreateDto userDto)
         {
             var result = await _userService.Add(userDto, 1);
 
             return Ok(result.Data);
+        }
+
+        [HttpPost("{approveCode}")]
+        public async Task<IActionResult> ApproveUser(string approveCode)
+        {
+            var result = await _userService.ApproveUser(approveCode, 4);
+
+            return result ? Ok() : Unauthorized();
         }
     }
 }
