@@ -15,5 +15,6 @@ namespace PSL.Business.Interfaces
         Task<IDataResult<User>> GetByUsername(string İdentificationName);
         Task<IResult> ProcessLoginFailed(int userId);
         Task<IDataResult<int>> Add(UserCreateDto user, int createdByUserId);
+        Task<bool> ApproveUser(string approveCode, int userId);
     }
 }

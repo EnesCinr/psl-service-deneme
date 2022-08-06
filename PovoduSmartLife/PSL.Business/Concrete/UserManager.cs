@@ -69,7 +69,7 @@ namespace PSL.Business.Concrete
 
             userEntity.IdentificationName = user.Email;
             userEntity.Email = user.Email;
-            userEntity.IsActive = true;
+            userEntity.IsActive = false;
             HashingHelper.CreatePasswordHash(user.Password, out var passwordHash, out var passwordSalt);
             userEntity.PasswordSalt = passwordSalt;
             userEntity.PasswordHash = passwordHash;
@@ -98,6 +98,15 @@ namespace PSL.Business.Concrete
                 return new ErrorResult(Messages.UserPasswordRulesError);
 
             return new SuccessResult();
+        }
+
+        public async Task<bool> ApproveUser(string approveCode, int userId)
+        {
+            User user = await _userDal.GetByIdAsync(userId);
+            if (approveCode == "123456")
+                user.IsActive = true;
+            await _userDal.Update(user);
+            return user.IsActive;
         }
     }
 }
