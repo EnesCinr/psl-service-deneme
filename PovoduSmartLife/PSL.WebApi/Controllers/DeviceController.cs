@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PSL.Business.Interfaces;
+using PSL.DataAccess.Interfaces.Devices;
 using PSL.Entities.Concrete.Devices;
 using PSL.Entities.Dtos.Device;
 using PSL.Entities.Dtos.ExternalService.MasterService;
@@ -14,26 +15,34 @@ namespace PSL.WebApi.Controllers
     {
         private readonly IMasterServiceService _masterServiceService;
         private readonly IDeviceService _deviceService;
+        private readonly IDeviceTypeDal _deviceTypeDal;
 
         public DeviceController(
             IMasterServiceService masterServiceService,
             IDeviceService deviceService,
-            IAuthService authService)
+            IAuthService authService,
+            IDeviceTypeDal deviceTypeDal)
             : base(authService)
         {
             TempHelper.Initialize();
             _masterServiceService = masterServiceService;
             _deviceService = deviceService;
+            _deviceTypeDal = deviceTypeDal;
         }
 
         [HttpGet("check")]
-        public async Task<IActionResult> CheckThenCreateDevice(string deviceId, string macAddress)
+        public async Task<IActionResult> CheckThenCreateDevice(string deviceId, string macAddress, string deviceTypeCode)
         {
+            var loggedUser = await base.GetLoggedUserInformation();
             MasterDeviceDto masterDevice = await _masterServiceService.GetDevice(deviceId, macAddress);
             if (masterDevice == null)
                 return NotFound();
             else
             {
+                var deviceType = _deviceTypeDal.Queryable().SingleOrDefault(r => r.DeviceTypeCode == deviceTypeCode);
+                var deviceTypeId = 0;
+                if (deviceType != null)
+                    deviceTypeId = deviceType.Id;
                 await _deviceService.AddDeviceAsync(new DeviceDto
                 {
                     DeviceId = deviceId,
@@ -42,7 +51,8 @@ namespace PSL.WebApi.Controllers
                     IsHomeKitDevice = !string.IsNullOrEmpty(masterDevice.HomeKitPairNumber),
                     HomeKitSetupID = masterDevice.HomeKitSetupID,
                     SerialNumber = masterDevice.SerialNumber,
-                });
+                    DeviceTypeId = deviceTypeId
+                }, loggedUser.Id);
                 return Ok(true);
             }
         }

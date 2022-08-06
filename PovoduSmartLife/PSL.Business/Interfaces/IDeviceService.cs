@@ -1,4 +1,5 @@
-﻿using PSL.Entities.Concrete.Devices;
+﻿using PSL.Core.Utilities.Results;
+using PSL.Entities.Concrete.Devices;
 using PSL.Entities.Dtos.Device;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace PSL.Business.Interfaces
 {
     public interface IDeviceService
     {
-        public Task AddDeviceAsync(DeviceDto device);
+        Task<IResult> AddDeviceAsync(DeviceDto device, int userId);
         public Task<Device> GetDeviceAsync(Expression<Func<Device, bool>> filter);
         public Task<ICollection<Device>> GetDeviceListAsync(Expression<Func<Device, bool>> filter);
         public Task UpdateDeviceAsync(DeviceDto device);

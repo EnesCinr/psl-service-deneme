@@ -1,4 +1,8 @@
-﻿using PSL.Business.Interfaces;
+﻿using AutoMapper;
+using PSL.Business.Constants;
+using PSL.Business.Interfaces;
+using PSL.Core.Utilities.Results;
+using PSL.DataAccess.Interfaces.Devices;
 using PSL.Entities.Concrete.Devices;
 using PSL.Entities.Dtos.Device;
 using System;
@@ -12,9 +16,30 @@ namespace PSL.Business.Concrete
 {
     public class DeviceManager : IDeviceService
     {
-        public Task AddDeviceAsync(DeviceDto device)
+        private readonly IMapper _mapper;
+        private readonly IDeviceDal _deviceDal;
+
+        public DeviceManager(IMapper mapper, IDeviceDal deviceDal)
         {
-            throw new NotImplementedException();
+            _mapper = mapper;
+            _deviceDal = deviceDal;
+        }
+
+        public async Task<IResult> AddDeviceAsync(DeviceDto device, int userId)
+        {
+            try
+            {
+                var mappedDevice = _mapper.Map<Device>(device);
+                mappedDevice.CreatedDate = DateTime.Now;
+                mappedDevice.CreatedUser = userId;
+                await _deviceDal.Add(mappedDevice);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorResult(ex.Message);
+            }
+
+            return new SuccessResult(Messages.Success_Added);
         }
 
         public Task DeleteDeviceAsync(int deviceId)

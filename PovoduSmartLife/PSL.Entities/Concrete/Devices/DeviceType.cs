@@ -11,6 +11,7 @@ namespace PSL.Entities.Concrete.Devices
     {
         public int Id { get; set; }
         public string DeviceTypeName { get; set; }
+        public string DeviceTypeCode { get; set; }
         public bool IsActive { get; set; }
     }
 }
