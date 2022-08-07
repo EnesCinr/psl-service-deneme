@@ -36,7 +36,8 @@ namespace PSL.WebApi.Controllers
         [HttpPost("{approveCode}")]
         public async Task<IActionResult> ApproveUser(string approveCode)
         {
-            var result = await _userService.ApproveUser(approveCode, 4);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _userService.ApproveUser(approveCode, loggedUser.Id);
 
             return result ? Ok() : Unauthorized();
         }

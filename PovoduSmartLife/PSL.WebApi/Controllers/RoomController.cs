@@ -21,20 +21,22 @@ namespace PSL.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<Room> Get(int id)
         {
+            await base.GetLoggedUserInformation();
             return await _roomService.GetRoom(x => x.Id == id);
         }
 
         [HttpGet]
         public async Task<ICollection<Room>> Get()
         {
+            await base.GetLoggedUserInformation();
             return await _roomService.GetRoomList(null);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(RoomDto room)
         {
-            //var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _roomService.AddRoom(room, 4);// loggedUser.Id);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _roomService.AddRoom(room, loggedUser.Id);
             if (result.Success)
                 return Ok(result);
             else
@@ -45,8 +47,8 @@ namespace PSL.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(RoomDto room)
         {
-            //var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _roomService.UpdateRoom(room, 4);// loggedUser.Id);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _roomService.UpdateRoom(room, loggedUser.Id);
             if (result.Success)
                 return Ok(result);
             else
@@ -57,6 +59,7 @@ namespace PSL.WebApi.Controllers
         [HttpDelete("{roomId}")]
         public async Task<IActionResult> Delete(int roomId)
         {
+            await base.GetLoggedUserInformation();
             var result = await _roomService.DeleteRoom(roomId);
             if (result.Success)
                 return Ok(result);

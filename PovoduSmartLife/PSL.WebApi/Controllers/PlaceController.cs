@@ -19,22 +19,24 @@ namespace PSL.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<Place> Get(int id)
+        public async Task<Place> Get(int id)
         {
-            return _placeService.GetPlace(x => x.Id == id);
+            await base.GetLoggedUserInformation();
+            return await _placeService.GetPlace(x => x.Id == id);
         }
 
         [HttpGet]
         public async Task<ICollection<Place>> Get()
         {
+            await base.GetLoggedUserInformation();
             return await _placeService.GetPlaceList(null);
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(PlaceDto place)
         {
-            //var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _placeService.AddPlace(place, 4);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _placeService.AddPlace(place, loggedUser.Id);
             if (result.Success)
                 return Ok(result);
             else
@@ -45,8 +47,8 @@ namespace PSL.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(PlaceDto place)
         {
-            //var loggedUser = await base.GetLoggedUserInformation();
-            var result = await _placeService.UpdatePlace(place, 4);// loggedUser.Id);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _placeService.UpdatePlace(place, loggedUser.Id);
             if (result.Success)
                 return Ok(result);
             else
@@ -57,6 +59,7 @@ namespace PSL.WebApi.Controllers
         [HttpDelete("{placeId}")]
         public async Task<IActionResult> Delete(int placeId)
         {
+            await base.GetLoggedUserInformation();
             var result = await _placeService.DeletePlace(placeId);
             if (result.Success)
                 return Ok(result);

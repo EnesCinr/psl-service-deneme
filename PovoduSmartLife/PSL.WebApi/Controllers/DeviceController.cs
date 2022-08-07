@@ -36,6 +36,7 @@ namespace PSL.WebApi.Controllers
         [HttpGet("is-added")]
         public async Task<IActionResult> IsAddedDevice(string macAddress)
         {
+            await base.GetLoggedUserInformation();
             //TODO böyle kod olmaz. Düzelt burayı!!!!
             Device device = null;
 
@@ -55,6 +56,7 @@ namespace PSL.WebApi.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateDevice(DeviceDto deviceDto)
         {
+            var loggedUser = await base.GetLoggedUserInformation();
             await _deviceService.UpdateDeviceAsync(deviceDto);
             return Ok();
         }
