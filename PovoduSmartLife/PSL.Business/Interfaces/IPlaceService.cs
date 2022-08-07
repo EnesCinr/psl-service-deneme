@@ -7,11 +7,11 @@ namespace PSL.Business.Interfaces
 {
     public interface IPlaceService
     {
-        Task<IResult> AddPlace(PlaceDto location, int userId);
-        Task<Place> GetPlace(Expression<Func<Place, bool>> filter);
-        Task<ICollection<Place>> GetPlaceList(Expression<Func<Place, bool>> filter);
-        Task<IResult> UpdatePlace(PlaceDto location, int userId);
-        Task<IResult> DeletePlace(int locationId);
+        Task<IResult> AddPlace(PlaceDto place, int userId);
+        Task<Place> GetPlace(int placeId, int userId);
+        Task<ICollection<Place>> GetPlaceList(int userId);
+        Task<IResult> UpdatePlace(PlaceDto place, int userId);
+        Task<IResult> DeletePlace(int placeId, int userId);
         Task<IResult> AddPlaceWithRoomsForDefaultValue(PlaceWithRoomsForDefaultValueDto placeWithRoomsForDefaultValueDto, int userId);
     }
 }

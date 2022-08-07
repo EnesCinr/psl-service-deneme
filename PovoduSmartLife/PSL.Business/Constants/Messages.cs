@@ -9,6 +9,7 @@ namespace PSL.Business.Constants
     public class Messages
     {
         public const string AuthorizationDenied = "Yetkisiz giriş";
+        public const string AuthorizationDeniedProcess = "Yetkisiz işlem";
 
         public const string NameAlreadyExists = "Mükerrer kayıt olduğundan geçersiz";
 

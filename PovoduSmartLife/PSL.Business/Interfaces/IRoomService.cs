@@ -9,9 +9,9 @@ namespace PSL.Business.Interfaces
     {
         Task<IResult> AddRoom(RoomDto room, int userId);
         Task<IResult> AddRooms(List<RoomDto> rooms, int userId);
-        Task<Room> GetRoom(Expression<Func<Room, bool>> filter);
-        Task<ICollection<Room>> GetRoomList(Expression<Func<Room, bool>> filter);
+        Task<Room> GetRoom(int roomId, int userId);
+        Task<ICollection<Room>> GetRoomListByUserId(int userId);
         Task<IResult> UpdateRoom(RoomDto room, int userId);
-        Task<IResult> DeleteRoom(int roomId);
+        Task<IResult> DeleteRoom(int roomId, int userId);
     }
 }

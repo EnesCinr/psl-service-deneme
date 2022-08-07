@@ -32,7 +32,7 @@ namespace PSL.Business.Concrete
             {
                 var mappedDevice = _mapper.Map<Device>(device);
                 mappedDevice.CreatedDate = DateTime.Now;
-                mappedDevice.CreatedUser = userId;
+                mappedDevice.CreatedUser = mappedDevice.UserId = userId;
                 await _deviceDal.Add(mappedDevice);
             }
             catch (Exception ex)
@@ -68,7 +68,8 @@ namespace PSL.Business.Concrete
                         HomeKitSetupId = masterDevice.HomeKitSetupID,
                         SerialNumber = masterDevice.SerialNumber,
                         DeviceTypeId = deviceTypeId,
-                        RoomId = null
+                        RoomId = null,
+
                     };
 
                     var result = await AddDeviceAsync(deviceDto, userId);

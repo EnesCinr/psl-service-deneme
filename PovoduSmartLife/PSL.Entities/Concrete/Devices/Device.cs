@@ -1,5 +1,6 @@
 ﻿using PSL.Core.Entities;
 using PSL.Entities.Concrete.Places;
+using PSL.Entities.Concrete.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,11 @@ namespace PSL.Entities.Concrete.Devices
         public string? DeviceJsonValue { get; set; }
         public bool IsActive { get; set; } = true;
         public bool InUse { get; set; }
+        public int UserId { get; set; }
 
         public virtual Room Room { get; set; }
         public virtual DeviceType DeviceType { get; set; }
         public virtual DeviceTypeClassificationSelection DeviceTypeClassificationSelection { get; set; }
+        public virtual User User { get; set; }
     }
 }

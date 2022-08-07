@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PSL.Business.Constants;
 using PSL.Business.Interfaces;
 using PSL.Core.Utilities.Results;
@@ -25,7 +26,7 @@ namespace PSL.Business.Concrete
             {
                 var mappedRoom = _mapper.Map<Room>(room);
                 mappedRoom.CreatedDate = DateTime.Now;
-                mappedRoom.CreatedUser = userId;
+                mappedRoom.CreatedUser = mappedRoom.UserId = userId;
                 await _roomDal.Add(mappedRoom);
             }
             catch (Exception ex)
@@ -44,6 +45,7 @@ namespace PSL.Business.Concrete
                 var datetimeNow = DateTime.Now;
                 mappedRooms.ForEach(f => f.CreatedDate = datetimeNow);
                 mappedRooms.ForEach(f => f.CreatedUser = userId);
+                mappedRooms.ForEach(f => f.UserId = userId);
 
                 await _roomDal.AddRangeAsync(mappedRooms);
             }
@@ -55,11 +57,11 @@ namespace PSL.Business.Concrete
             return new SuccessResult(Messages.Success_Added);
         }
 
-        public async Task<IResult> DeleteRoom(int roomId)
+        public async Task<IResult> DeleteRoom(int roomId, int userId)
         {
             try
             {
-                var deleteRoom = await _roomDal.GetByIdAsync(roomId);
+                var deleteRoom = await _roomDal.GetAsync(c => c.Id == roomId && c.UserId == userId);
                 if (deleteRoom == null)
                     throw new Exception(Messages.DataNotExists);
                 await _roomDal.Delete(deleteRoom);
@@ -71,23 +73,27 @@ namespace PSL.Business.Concrete
             return new SuccessResult(Messages.Success_Deleted);
         }
 
-        public async Task<Room> GetRoom(Expression<Func<Room, bool>> filter = null)
+        public async Task<Room> GetRoom(int roomId, int userId)
         {
-            return await _roomDal.GetAsync(filter);
+            return await _roomDal.GetAsync(t => t.UserId == userId && t.Id == roomId);
         }
 
-        public async Task<ICollection<Room>> GetRoomList(Expression<Func<Room, bool>> filter = null)
+        public async Task<ICollection<Room>> GetRoomListByUserId(int userId)
         {
-            return await _roomDal.GetListAsync(filter);
+            return await _roomDal.GetListAsync(r => r.UserId == userId);
         }
 
         public async Task<IResult> UpdateRoom(RoomDto room, int userId)
         {
             try
             {
+                var getRoom = await _roomDal.GetAsync(g => g.Id == room.Id && g.UserId == userId);
+                if (getRoom == null)
+                    return new ErrorResult(Messages.DataNotExists);
+
                 var updated = _mapper.Map<Room>(room);
                 updated.UpdatedDate = DateTime.Now;
-                updated.UpdatedUser = userId;
+                updated.UpdatedUser = updated.UserId = userId;
                 await _roomDal.Update(updated);
             }
             catch (Exception ex)

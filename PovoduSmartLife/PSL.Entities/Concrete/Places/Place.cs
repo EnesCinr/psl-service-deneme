@@ -1,4 +1,5 @@
 ﻿using PSL.Core.Entities;
+using PSL.Entities.Concrete.Users;
 
 namespace PSL.Entities.Concrete.Places
 {
@@ -11,7 +12,9 @@ namespace PSL.Entities.Concrete.Places
         public bool IsDelete { get; set; } = false;
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
+        public int UserId { get; set; }
 
+        public virtual User User { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
     }
 }

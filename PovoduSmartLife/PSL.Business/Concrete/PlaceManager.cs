@@ -46,12 +46,13 @@ namespace PSL.Business.Concrete
 
                 var mappedPlace = _mapper.Map<Place>(placeWithRoomsForDefaultValueDto.Place);
                 mappedPlace.CreatedDate = datetimeNow;
-                mappedPlace.CreatedUser = userId;
+                mappedPlace.CreatedUser = mappedPlace.UserId = userId;
 
                 mappedPlace.Rooms = _mapper.Map<List<Room>>(placeWithRoomsForDefaultValueDto.Rooms);
-                var mappedPlaceList = mappedPlace.Rooms.ToList();
-                mappedPlaceList.ForEach(f => f.CreatedDate = datetimeNow);
-                mappedPlaceList.ForEach(f => f.CreatedUser = userId);
+                var mappedRoomList = mappedPlace.Rooms.ToList();
+                mappedRoomList.ForEach(f => f.CreatedDate = datetimeNow);
+                mappedRoomList.ForEach(f => f.CreatedUser = userId);
+                mappedRoomList.ForEach(f => f.UserId = userId);
 
                 await _placeDal.Add(mappedPlace);
             }
@@ -62,11 +63,11 @@ namespace PSL.Business.Concrete
             return new SuccessResult(Messages.Success);
         }
 
-        public async Task<IResult> DeletePlace(int placeId)
+        public async Task<IResult> DeletePlace(int placeId, int userId)
         {
             try
             {
-                var deletePlace = await _placeDal.GetByIdAsync(placeId);
+                var deletePlace = await _placeDal.GetAsync(t => t.Id == placeId && t.UserId == userId);
                 if (deletePlace == null)
                     throw new Exception(Messages.DataNotExists);
                 await _placeDal.Delete(deletePlace);
@@ -78,23 +79,27 @@ namespace PSL.Business.Concrete
             return new SuccessResult(Messages.Success_Deleted);
         }
 
-        public async Task<Place> GetPlace(Expression<Func<Place, bool>> filter = null)
+        public async Task<Place> GetPlace(int placeId, int userId)
         {
-            return await _placeDal.GetAsync(filter);
+            return await _placeDal.GetAsync(t => t.UserId == userId && t.Id == placeId);
         }
 
-        public async Task<ICollection<Place>> GetPlaceList(Expression<Func<Place, bool>> filter = null)
+        public async Task<ICollection<Place>> GetPlaceList(int userId)
         {
-            return await _placeDal.GetListAsync(filter);
+            return await _placeDal.GetListAsync(r => r.UserId == userId);
         }
 
         public async Task<IResult> UpdatePlace(PlaceDto place, int userId)
         {
             try
             {
+                var getPlace = await _placeDal.GetAsync(g => g.Id == place.Id && g.UserId == userId);
+                if (getPlace == null)
+                    return new ErrorResult(Messages.DataNotExists);
+
                 var updated = _mapper.Map<Place>(place);
                 updated.UpdatedDate = DateTime.Now;
-                updated.UpdatedUser = userId;
+                updated.UpdatedUser = updated.UserId = userId;
                 await _placeDal.Update(updated);
             }
             catch (Exception ex)

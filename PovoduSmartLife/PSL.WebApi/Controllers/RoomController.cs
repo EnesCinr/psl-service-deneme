@@ -21,15 +21,15 @@ namespace PSL.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<Room> Get(int id)
         {
-            await base.GetLoggedUserInformation();
-            return await _roomService.GetRoom(x => x.Id == id);
+            var loggedUser = await base.GetLoggedUserInformation();
+            return await _roomService.GetRoom(id, loggedUser.Id);
         }
 
         [HttpGet]
         public async Task<ICollection<Room>> Get()
         {
-            await base.GetLoggedUserInformation();
-            return await _roomService.GetRoomList(null);
+            var loggedUser = await base.GetLoggedUserInformation();
+            return await _roomService.GetRoomListByUserId(loggedUser.Id);
         }
 
         [HttpPost]
@@ -59,8 +59,8 @@ namespace PSL.WebApi.Controllers
         [HttpDelete("{roomId}")]
         public async Task<IActionResult> Delete(int roomId)
         {
-            await base.GetLoggedUserInformation();
-            var result = await _roomService.DeleteRoom(roomId);
+            var loggedUser = await base.GetLoggedUserInformation();
+            var result = await _roomService.DeleteRoom(roomId, loggedUser.Id);
             if (result.Success)
                 return Ok(result);
             else
