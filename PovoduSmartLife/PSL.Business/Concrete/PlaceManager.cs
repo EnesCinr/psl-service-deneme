@@ -27,7 +27,7 @@ namespace PSL.Business.Concrete
             {
                 var mappedPlace = _mapper.Map<Place>(place);
                 mappedPlace.CreatedDate = DateTime.Now;
-                mappedPlace.CreatedUser = userId;
+                mappedPlace.CreatedUser = mappedPlace.UserId = userId;
                 await _placeDal.Add(mappedPlace);
             }
             catch (Exception ex)

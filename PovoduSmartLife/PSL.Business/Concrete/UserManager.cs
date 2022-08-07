@@ -30,12 +30,12 @@ namespace PSL.Business.Concrete
 
         public async Task<IDataResult<User>> GetById(int userId)
         {
-            return new SuccessDataResult<User>(await _userDal.SingleOrDefault(u => u.Id == userId, u => u.UserRelations));
+            return new SuccessDataResult<User>(await _userDal.SingleOrDefault(u => u.Id == userId));//, u => u.UserRelations));
         }
 
         public async Task<IDataResult<User>> GetByUsername(string identificationName)
         {
-            return new SuccessDataResult<User>(await _userDal.SingleOrDefault(u => u.IdentificationName == identificationName, u => u.UserRelations));
+            return new SuccessDataResult<User>(await _userDal.SingleOrDefault(u => u.IdentificationName == identificationName));//, u => u.UserRelations));
         }
 
         /// <summary>

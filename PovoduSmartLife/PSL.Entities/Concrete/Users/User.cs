@@ -1,4 +1,5 @@
 ﻿using PSL.Core.Entities;
+using PSL.Entities.Concrete.Places;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace PSL.Entities.Concrete.Users
         public bool IsDelete { get; set; } = false;
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
-        public virtual ICollection<UserRelation> UserRelations { get; set; }
+
+        public virtual ICollection<Place> Places { get; set; }
+        public virtual ICollection<Room> Rooms { get; set; }
     }
 }

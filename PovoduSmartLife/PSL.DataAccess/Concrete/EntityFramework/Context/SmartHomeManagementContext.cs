@@ -51,6 +51,12 @@ namespace PSL.DataAccess.Concrete.EntityFramework.Context
             modelBuilder.ApplyConfiguration(new DeviceTypeClassificationRelationMapping());
             modelBuilder.ApplyConfiguration(new DeviceTypeClassificationSelectionMapping());
 
+            modelBuilder.Entity<Room>()
+                .HasOne<User>(s => s.User)
+                .WithMany(ta => ta.Rooms)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
