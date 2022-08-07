@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PSL.Business.Interfaces;
-using PSL.DataAccess.Interfaces.Devices;
 using PSL.Entities.Concrete.Devices;
 using PSL.Entities.Dtos.Device;
-using PSL.Entities.Dtos.ExternalService.MasterService;
-using PSL.MasterService.Business.Interface;
 
 namespace PSL.WebApi.Controllers
 {
@@ -13,51 +10,30 @@ namespace PSL.WebApi.Controllers
     [ApiController]
     public class DeviceController : BaseController
     {
-        private readonly IMasterServiceService _masterServiceService;
+
         private readonly IDeviceService _deviceService;
-        private readonly IDeviceTypeDal _deviceTypeDal;
 
         public DeviceController(
-            IMasterServiceService masterServiceService,
             IDeviceService deviceService,
-            IAuthService authService,
-            IDeviceTypeDal deviceTypeDal)
+            IAuthService authService)
             : base(authService)
         {
-            TempHelper.Initialize();
-            _masterServiceService = masterServiceService;
             _deviceService = deviceService;
-            _deviceTypeDal = deviceTypeDal;
+
         }
 
-        [HttpGet("check")]
-        public async Task<IActionResult> CheckThenCreateDevice(string deviceId, string macAddress, string deviceTypeCode)
+        [HttpPost("create-device")]
+        public async Task<IActionResult> CheckThenCreateDevice(CheckThenCreateDeviceDto checkThenCreateDeviceDto)
         {
             var loggedUser = await base.GetLoggedUserInformation();
-            MasterDeviceDto masterDevice = await _masterServiceService.GetDevice(deviceId, macAddress);
-            if (masterDevice == null)
-                return NotFound();
+            var result = await _deviceService.CreateDeviceAsync(checkThenCreateDeviceDto, loggedUser.Id);
+            if (result.Success)
+                return Ok(result);
             else
-            {
-                var deviceType = _deviceTypeDal.Queryable().SingleOrDefault(r => r.DeviceTypeCode == deviceTypeCode);
-                var deviceTypeId = 0;
-                if (deviceType != null)
-                    deviceTypeId = deviceType.Id;
-                await _deviceService.AddDeviceAsync(new DeviceDto
-                {
-                    DeviceId = deviceId,
-                    MacAddress = macAddress,
-                    HomeKitPairNumber = masterDevice.HomeKitPairNumber,
-                    IsHomeKitDevice = !string.IsNullOrEmpty(masterDevice.HomeKitPairNumber),
-                    HomeKitSetupID = masterDevice.HomeKitSetupID,
-                    SerialNumber = masterDevice.SerialNumber,
-                    DeviceTypeId = deviceTypeId
-                }, loggedUser.Id);
-                return Ok(true);
-            }
+                return BadRequest(result.Message);
         }
 
-        [HttpGet("isAdded")]
+        [HttpGet("is-added")]
         public async Task<IActionResult> IsAddedDevice(string macAddress)
         {
             //TODO böyle kod olmaz. Düzelt burayı!!!!

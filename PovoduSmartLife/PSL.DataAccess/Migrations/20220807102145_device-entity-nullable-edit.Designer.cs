@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PSL.DataAccess.Concrete.EntityFramework.Context;
 
@@ -11,9 +12,10 @@ using PSL.DataAccess.Concrete.EntityFramework.Context;
 namespace PSL.DataAccess.Migrations
 {
     [DbContext(typeof(SmartHomeManagementContext))]
-    partial class SmartHomeManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20220807102145_device-entity-nullable-edit")]
+    partial class deviceentitynullableedit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,6 +55,7 @@ namespace PSL.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Icon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("InUse")
@@ -69,6 +72,7 @@ namespace PSL.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("RoomId")

@@ -26,6 +26,7 @@ namespace PSL.DependencyResolvers.NetCore
             services.AddScoped<IPlaceDal, EFPlaceDal>();
             services.AddScoped<IUserDal, EFUserDal>();
             services.AddScoped<IRoomDal, EFRoomDal>();
+            services.AddScoped<IDeviceTypeDal, EFDeviceTypeDal>();
             #endregion
 
             #region Services
@@ -33,6 +34,7 @@ namespace PSL.DependencyResolvers.NetCore
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped<IPlaceService, PlaceManager>();
             services.AddScoped<IRoomService, RoomManager>();
+            services.AddScoped<IDeviceService, DeviceManager>();
             #endregion
         }
     }

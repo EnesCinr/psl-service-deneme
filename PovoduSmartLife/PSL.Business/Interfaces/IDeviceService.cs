@@ -13,6 +13,7 @@ namespace PSL.Business.Interfaces
     public interface IDeviceService
     {
         Task<IResult> AddDeviceAsync(DeviceDto device, int userId);
+        Task<IResult> CreateDeviceAsync(CheckThenCreateDeviceDto checkThenCreateDeviceDto, int userId);
         public Task<Device> GetDeviceAsync(Expression<Func<Device, bool>> filter);
         public Task<ICollection<Device>> GetDeviceListAsync(Expression<Func<Device, bool>> filter);
         public Task UpdateDeviceAsync(DeviceDto device);

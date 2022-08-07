@@ -15,6 +15,7 @@ namespace PSL.DataAccess.Concrete.EntityFramework.Mapping.Devices
         {
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Id).UseIdentityColumn();
+            builder.Property(b => b.RoomId).IsRequired(false);
         }
     }
 }

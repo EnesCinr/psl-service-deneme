@@ -36,5 +36,7 @@ namespace PSL.Business.Constants
         public const string UserPasswordRulesError = "Kullanıcı şifresi en az 8 karakterden oluşmalıdır.Ayrıca en az bir büyük harf ve bir küçük harf içermelidir!";
 
         public const string AccessTokenCreated = "Kullanıcı token bilgisi oluşturuldu";
+        public const string DeviceNotExists = "Cihaz bulunamadı";
+        public const string DeviceTypeCodeNotMatch = "Cihaz tip kodu eşleşmedi";
     }
 }
