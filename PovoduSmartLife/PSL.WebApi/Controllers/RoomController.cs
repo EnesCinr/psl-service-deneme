@@ -19,17 +19,17 @@ namespace PSL.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Room> Get(int id)
+        public async Task<Room> GetById(int id)
         {
             var loggedUser = await base.GetLoggedUserInformation();
             return await _roomService.GetRoom(id, loggedUser.Id);
         }
 
         [HttpGet]
-        public async Task<ICollection<Room>> Get()
+        public async Task<ICollection<Room>> Get(int placeId)
         {
             var loggedUser = await base.GetLoggedUserInformation();
-            return await _roomService.GetRoomListByUserId(loggedUser.Id);
+            return await _roomService.GetRoomListByUserId(loggedUser.Id, placeId);
         }
 
         [HttpPost]

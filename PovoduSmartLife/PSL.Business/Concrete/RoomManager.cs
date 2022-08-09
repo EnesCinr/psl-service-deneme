@@ -78,9 +78,9 @@ namespace PSL.Business.Concrete
             return await _roomDal.GetAsync(t => t.UserId == userId && t.Id == roomId);
         }
 
-        public async Task<ICollection<Room>> GetRoomListByUserId(int userId)
+        public async Task<ICollection<Room>> GetRoomListByUserId(int userId, int placeId)
         {
-            return await _roomDal.GetListAsync(r => r.UserId == userId);
+            return await _roomDal.GetListAsync(r => r.UserId == userId && r.PlaceId == placeId);
         }
 
         public async Task<IResult> UpdateRoom(RoomDto room, int userId)
